@@ -1,6 +1,8 @@
-# Data Collection
+# Turkish Data Depot 
 
-### Meta fields
+In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata designs will be shared and updated.  
+
+### Datasets Meta fields (v0.1)
 
 |field|value-type|value|
 |---|---|---|
