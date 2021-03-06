@@ -7,9 +7,9 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |field|value-type|value|
 |---|---|---|
 |catalog|id|XYZ-C-2020-CCBY-00|
-|type|type::enum|Corpus|
+|type|type::enum|corpus|
 |name|string|BOUN Web Derlemi|
-|license|license::enum|CC Attribution-Noncommercial-Share Alike|
+|license|license::enum|cc-by-sa-4.0|
 |release-date|int|2008|
 |download-size|int|4.3GB|
 |authors|list[string]|Department of Computer Engineering, Bogaziçi University|
@@ -24,7 +24,7 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 
 ### Enumeration definitions
 
-**type::enum**
+#### **type::enum**
 
 |value|description|
 |---|---|
@@ -44,7 +44,7 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |rdf-triples||
 
 
-**license::enum**
+#### **license::enum**
 
 |value|description|
 |---|---|
@@ -83,12 +83,12 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |unlicense|The Unlicense|
 |zlib|zLib License|
 
-**data-type::enum**
+#### **data-type::enum**
 
-**annotation::enum**
+#### **annotation::enum**
 
-**genre::enum**
+#### **genre::enum**
 
-**compression::enum**
+#### **compression::enum**
 
 
