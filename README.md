@@ -17,7 +17,7 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |data-type|list[data-type::enum]|text|
 |annotation|annotation::enum|available|
 |citation|string|https://arxiv.org/abs/1810.04805|
-|genre|genre::enum|generic|
+|source|source::enum|web-collection|
 |compression|compression::enum|tar.gz|
 |website|string|https://dumps.wikimedia.org/|
 |description|string|Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.|
@@ -29,19 +29,67 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |value|description|
 |---|---|
 |corpus|unannotated text corpus of any format|
-|parallel-corpus||
-|morphology-tagged-corpus||
-|treebank||
-|dictionary||
-|lexicon||
-|word-vectors||
-|language-model||
-|morphology-model||
-|parser||
-|machine-translation-model||
-|nlp-toolkit||
-|ner-tagger||
-|rdf-triples||
+|parallel-corpus|aligned translations of text of two languages or more|
+|morphology-tagged-corpus|PoS tagged, lemmatized, morphologically disambiguated text|
+|treebank|turkish wordnet etc..|
+|dictionary|dictionary|
+|lexicon|lexicon, a set of vocabulary|
+|word-vectors|set of pretrained word vectors|
+|language-model|pretrained weights of language model|
+|morphology-model|software or model for morphological anaylsis|
+|parser|software or model for dependency parsing|
+|machine-translation-model|software or model|
+|nlp-toolkit|toolkit for turkish/generic nlp|
+|ner-tagger|named entity recognition tagging software or model|
+|rdf-triples|rdf triples, knowledge graphs and information retrieval|
+
+#### **data-type::enum**
+
+|value|description|
+|---|---|
+|text|raw or annotated text|
+|video|short/long videos|
+|image|visual files|
+|audio|audio|
+
+#### **annotation::enum**
+
+|value|description|
+|---|---|
+|raw-text|Unannotated|
+|tokenized-word-perline|Tokenized with a format that has a word for every line|
+|tokenized-whitespace|Tokenized with a format that is seperated to units including punctiation marks|
+|sentenced-marked|Starting and ending of the sentences are marked|
+|pos-tagged|word types are tagged|
+|morphologically-annotated|contains Morpheme tag|
+|dependency-annotation|contains Dependency analyse information tag|
+|syntactically-annotated|tagged at Syntactical level|
+|statistics|Contains statistical information| 
+
+#### **source::enum**
+
+|value|description|
+|---|---|
+|varied|varied sources|
+|wiki|includes all types of wikis|
+|news-paper|online news resource|
+|academic|using research papers online|
+|books|using online books|
+|user-generated|reviews or comments of internet users (amazon, imdb etc.)|
+|social-media|twitter tweets|
+|emails|sent emails|
+|dialog|short messages sms or chats|
+|web-collection|crawled from web which can contain extracted or raw web pages|
+
+#### **compression::enum**
+
+|value|description|
+|---|---|
+|.tar.gz|tarball with gzip|
+|.gz|gzip|
+|.tar|tarball|
+|.zip|zip|
+|.bz2|bzip2|
 
 
 #### **license::enum**
@@ -82,13 +130,4 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |ncsa|University of Illinois/NCSA Open Source License|
 |unlicense|The Unlicense|
 |zlib|zLib License|
-
-#### **data-type::enum**
-
-#### **annotation::enum**
-
-#### **genre::enum**
-
-#### **compression::enum**
-
 
