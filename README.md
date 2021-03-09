@@ -20,6 +20,7 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |source|source::enum|web-collection|
 |compression|compression::enum|tar.gz|
 |website|string|https://dumps.wikimedia.org/|
+|doi|string|https://doi.org/10.35111/fr89-3285|
 |description|string|Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.|
 
 ### Enumeration definitions
