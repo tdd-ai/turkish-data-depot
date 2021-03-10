@@ -1,4 +1,4 @@
-# TDD Backend web application
+# Turkish Data Depository Backend Application
 
 ## Django app installation and running
 
@@ -17,3 +17,4 @@ $ python manage.py runserver
 ## Models
 
 ### `Dataset`
+
