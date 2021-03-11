@@ -38,7 +38,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 	)
 
 	USERNAME_FIELD = "email"
-	RQUIRED_FIELDS = []
+	REQUIRED_FIELDS = []
 	objects = UserManager()
 
 	class Meta:
