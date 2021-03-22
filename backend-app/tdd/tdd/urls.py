@@ -19,16 +19,18 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf import settings
 
-from .apis import GetToken
+import django_cas_ng.views
 from .views import ApplicationView, favicon_view
-from datasets.urls import datasets_router, datasets_urlpatterns
 
 urlpatterns = [
 	re_path(r"^$", ApplicationView.as_view(), name="Application"),
 	path('admin/', admin.site.urls),
 	path('favicon.ico', favicon_view),
-	path('get-token/', GetToken.as_view(), name="get-token"),
+    path('accounts/login', django_cas_ng.views.LoginView.as_view(), name='cas_ng_login'),
+    path('accounts/logout', django_cas_ng.views.LogoutView.as_view(), name='cas_ng_logout'),
 ]
+
+from datasets.urls import datasets_router, datasets_urlpatterns
 
 urlpatterns += datasets_router.urls
 urlpatterns += datasets_urlpatterns

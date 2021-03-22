@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
 from pathlib import Path
 import sys
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'v3^!#u@x*hikk27m7nuek)*@^8hvrowkav_bpj=8$%o3dpmc7='
 ALLOWED_HOSTS = []
 
 # Application definition
-
 PREREQ_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -34,12 +32,12 @@ PREREQ_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "rest_framework",
-	"rest_framework.authtoken",
+    'django_cas_ng',
+    'rest_framework',
+	'rest_framework.authtoken',
 ]
 
 PROJECT_APPS = [
-	"users",
 	"datasets"
 ]
 
@@ -53,7 +51,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_cas_ng.middleware.CASMiddleware'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend',
+)
+
 
 ROOT_URLCONF = 'tdd.urls'
 
@@ -107,6 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CAS_SERVER_URL = 'https://django-cas-ng-demo-server.herokuapp.com/cas/'
+CAS_VERSION = '3'
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = "Europe/Istanbul"
 USE_I18N = True
@@ -125,12 +133,10 @@ LOCALE_PATHS = (
 	BASE_DIR / "locale",
 )
 
-# Auth User Model
-AUTH_USER_MODEL = "users.User"
-
 # Rest Framework Auth
-REST_FRAMEWORK = {
-	'DEFAULT_AUTHENTICATION_CLASSES': (
-		'rest_framework.authentication.TokenAuthentication',
-	)
-}
+# REST_FRAMEWORK = {
+	# 'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated',
+		# 'rest_framework.authentication.TokenAuthentication',
+	# )
+# }

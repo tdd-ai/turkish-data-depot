@@ -27,3 +27,7 @@ ALLOWED_HOSTS = ["*"]
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = []
+
+
+CAS_SERVER_URL = 'http://127.0.0.1:7000/'
+CAS_VERSION = '3'
