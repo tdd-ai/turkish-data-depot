@@ -19,21 +19,22 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf import settings
 
-import django_cas_ng.views
 from .views import ApplicationView, favicon_view
 
 urlpatterns = [
 	re_path(r"^$", ApplicationView.as_view(), name="Application"),
 	path('admin/', admin.site.urls),
-	path('favicon.ico', favicon_view),
-    path('accounts/login', django_cas_ng.views.LoginView.as_view(), name='cas_ng_login'),
-    path('accounts/logout', django_cas_ng.views.LogoutView.as_view(), name='cas_ng_logout'),
+	path('favicon.ico', favicon_view, name='favicon'),
 ]
 
 from datasets.urls import datasets_router, datasets_urlpatterns
 
 urlpatterns += datasets_router.urls
 urlpatterns += datasets_urlpatterns
+
+from users.urls import users_urlpatterns
+
+urlpatterns += users_urlpatterns
 
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

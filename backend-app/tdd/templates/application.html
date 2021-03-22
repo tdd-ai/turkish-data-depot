@@ -14,13 +14,6 @@
 
 <body style="background-color: #e0e0e0">
 	<h1>Welcome to Turkish Data Depot</h1>
-	{% if user.is_authenticated %}
-	<p>You logged in as <strong>{{ user.username }}</strong>.</p>
-	<p><a href="/accounts/logout">Logout</a></p>
-	{% else %}
-	<p>Please Log in</p>
-	<p><a href="/accounts/login">Login</a></p>
-	{% endif %}
 	<div id="root"></div>
 	<script src="{% static " bundles/main.js" %}"></script>
 </body>

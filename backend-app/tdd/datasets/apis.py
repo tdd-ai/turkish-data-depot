@@ -4,13 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 class ExampleView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         content = {
-            'user': request.user,  # `django.contrib.auth.User` instance.
-            'auth': request.auth,  # None
+            'user': request.user.id,  # `django.contrib.auth.User` instance.
             "some": "response"
         }
         return Response(content)
