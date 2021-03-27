@@ -2,11 +2,15 @@
 
 In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata designs will be shared and updated.  
 
+### Catalog no
+
+TDD-{type_acronym}-{year}{month}-{license_acronym}-{serial_number}
+
 ## Datasets Meta fields (v0.1)
 
 |field|value-type|value|
 |---|---|---|
-|catalog|id|XYZ-C-2020-CCBY-00|
+|catalog|id|TDD-C-202004-CCBY-01|
 |type|type::enum|corpus|
 |name|string|BOUN Web Derlemi|
 |license|license::enum|cc-by-sa-4.0|
@@ -91,6 +95,16 @@ In this repo, Turkish Data Depot (TDD) datasets' sharing formats, and metadata d
 |.tar|tarball|
 |.zip|zip|
 |.bz2|bzip2|
+
+#### **format::enum**
+
+|value|description|
+|---|---|
+|xml|Extensible Markup Language|
+|json|JavaScript Object Notation|
+|jsonlines|json object per line|
+|txt|raw text|
+|bin|binary data|
 
 
 #### **license::enum**

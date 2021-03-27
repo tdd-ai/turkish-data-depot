@@ -22,7 +22,7 @@ if not DEBUG:
 			pk.write(pem_public)
 
 		print("Public Key fetched")
-	except e as Exception:
+	except Exception as e:
 		traceback.print_exc()
 
 SIMPLE_JWT = {

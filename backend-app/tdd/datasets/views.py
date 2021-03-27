@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+class ExampleView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        content = {
+            'user': request.user.id,  # `django.contrib.auth.User` instance.
+            "some": "response"
+        }
+        return Response(content)

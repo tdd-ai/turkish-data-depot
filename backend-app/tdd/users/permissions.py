@@ -14,8 +14,10 @@ class IsSSOAdmin(BasePermission):
     def has_permission(self, request, view):
         try:
             assert request.user and request.user.is_authenticated
+
             if request.auth.payload.get('sso_admin'):
                 return True
+
             user = request.user
             if isinstance(request.user, TokenUser):
                 user_set = User.objects.filter(id=user.id)
@@ -23,6 +25,7 @@ class IsSSOAdmin(BasePermission):
                     user = user_set.first()
                 else:
                     return False
+
             return user.email == TDD_HOST_EMAIL
         except AssertionError:
             return False
