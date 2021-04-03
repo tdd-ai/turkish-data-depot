@@ -25,8 +25,7 @@ class IsSSOAdmin(BasePermission):
                     user = user_set.first()
                 else:
                     return False
-
-            return user.email == TDD_HOST_EMAIL
+            return user.is_staff
         except AssertionError:
             return False
 
