@@ -17,6 +17,6 @@ class UserProfileView(RetrieveUpdateAPIView):
 
 class UserCreateAPIView(CreateAPIView):
 
-    permission_classes = (IsAuthenticated, IsSSOAdmin,)
+    permission_classes = (IsSSOAdmin, IsAuthenticated)
     authentication_classes = (JWTTokenUserAuthentication,)
     serializer_class = UserSerializer
