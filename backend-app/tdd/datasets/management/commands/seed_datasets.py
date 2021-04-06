@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 print("Reading seed file...")
                 data = json.loads(fi.read())
                 for _type in data["types"]:
-                    _t = Type.objects.get_or_create(name=_type["value"], description=_type["description"])
+                    _t = Type.objects.get_or_create(name=_type["value"], description=_type["description"], catalog_acronym=_type["catalog_acronym"])
 
                 for data_type in data["data_types"]:
                     _td = DataType.objects.get_or_create(name=data_type["value"], description=data_type["description"])
@@ -45,6 +45,6 @@ class Command(BaseCommand):
                     _f = Format.objects.get_or_create(name=_format["value"], description=_format["description"])
 
                 for _license in data["licenses"]:
-                    _l = License.objects.get_or_create(name=_license["value"], description=_license["description"])
+                    _l = License.objects.get_or_create(name=_license["value"], description=_license["description"], catalog_acronym=_license["catalog_acronym"])
         except Exception as e:
             print(e)
