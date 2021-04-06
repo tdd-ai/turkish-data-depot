@@ -3,8 +3,9 @@ from .models import *
 
 class DatasetAdmin(admin.ModelAdmin):
     model = Dataset
-    list_display = ('catalog', 'is_visible', 'type', 'name')
-    exclude = ('id',)
+    list_display = ('name', 'catalog', 'is_visible', 'type', 'name')
+    exclude = ('id', 'serial_number')
+    readonly_fields = ('catalog',)
 
     def has_add_permission(self, request, obj=None):
         return request.user.is_superuser or request.user.is_staff

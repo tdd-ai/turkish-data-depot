@@ -2,6 +2,7 @@ from django.db import models
 from tdd.models import BaseModel
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from datetime import date
 
 import uuid
 
@@ -65,10 +66,10 @@ class Dataset(BaseModel):
 
     # required
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, verbose_name='ID')
-    catalog = models.CharField(max_length=128,verbose_name=_("catalog"), unique=True)
-    name = models.CharField(max_length=128,verbose_name=_("name"))
-    short_description = models.TextField(max_length=512,blank=True,verbose_name=_("short description"))
-    description = models.TextField(max_length=10000,blank=True,verbose_name=_("description"))
+    catalog = models.CharField(max_length=128, verbose_name=_("catalog"), unique=True)
+    name = models.CharField(max_length=128, verbose_name=_("name"))
+    short_description = models.TextField(max_length=512, blank=True, verbose_name=_("short description"))
+    description = models.TextField(max_length=10000, blank=True, verbose_name=_("description"))
     is_visible = models.BooleanField(default=True)
     version = models.CharField(blank=False, max_length=10, verbose_name=_("version"), help_text="version of the dataset")
 
@@ -88,8 +89,19 @@ class Dataset(BaseModel):
     authors = models.CharField(max_length=256, verbose_name=_("authors"), help_text="comma seperated")
     release_date = models.DateField()
 
+    #auto generated
+    serial_number = models.CharField(max_length=10,verbose_name=_("serial number"))
+
     def __str__(self):
-        return self.title
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            serial_number = Dataset.objects.filter(release_date=date.today()).count() + 1
+            self.serial_number = "{0:0=4d}".format(serial_number)
+        self.catalog = "TDD--" + self.type.catalog_acronym + "--" + str(self.release_date.year) + str(self.release_date.month) + "--" + self.license.catalog_acronym + "--" + self.serial_number
+
+        return super(Dataset, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['release_date']
