@@ -90,7 +90,7 @@ class Dataset(BaseModel):
     release_date = models.DateField()
 
     #auto generated
-    serial_number = models.CharField(max_length=10,verbose_name=_("serial number"))
+    serial_number = models.CharField(max_length=10, verbose_name=_("serial number"))
 
     def __str__(self):
         return self.name
