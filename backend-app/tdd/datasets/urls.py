@@ -5,7 +5,14 @@ from .views import *
 
 datasets_router = routers.DefaultRouter()
 
-datasets_router.register('api/datasets', DatasetViewSet)
+datasets_router.register('api/datasets', DatasetViewSet, basename='datasets')
+datasets_router.register('api/enum/data-types', DataTypeViewSet)
+datasets_router.register('api/enum/annotations', AnnotationViewSet)
+datasets_router.register('api/enum/sources', SourceViewSet)
+datasets_router.register('api/enum/formats', FormatViewSet)
+datasets_router.register('api/enum/compressions', CompressionViewSet)
+datasets_router.register('api/enum/types', TypeViewSet)
+datasets_router.register('api/enum/licenses', LicenseViewSet)
 
 
 datasets_urlpatterns = [

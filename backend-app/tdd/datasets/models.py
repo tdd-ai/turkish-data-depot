@@ -79,6 +79,7 @@ class Dataset(BaseModel):
     data_type = models.ForeignKey(DataType, on_delete=models.CASCADE, verbose_name=_("data type"))
     source = models.ForeignKey(Source, on_delete=models.CASCADE, verbose_name=_("data source"))
     license = models.ForeignKey(License, on_delete=models.CASCADE, verbose_name=_("license"))
+    compression = models.ForeignKey(Compression, on_delete=models.CASCADE, verbose_name=_("Compression"))
 
     # many to many enums
     annotations = models.ManyToManyField(Annotation, verbose_name=_("annotations"))
