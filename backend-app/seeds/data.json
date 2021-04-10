@@ -302,7 +302,7 @@
         {
             "value": "gpl",
             "description": "GNU General Public License family",
-            "catalog_acronym": ""
+            "catalog_acronym": "GPL"
         },
         {
             "value": "gpl-2.0",
