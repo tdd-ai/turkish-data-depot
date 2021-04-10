@@ -35,8 +35,9 @@ class SourceViewSet(viewsets.ModelViewSet):
     queryset = Source.objects.all()
     http_method_names = ['get']
 
+
 class FormatViewSet(viewsets.ModelViewSet):
-    serializer_class = ForamtSerializer
+    serializer_class = FormatSerializer
     queryset = Format.objects.all()
     http_method_names = ['get']
 

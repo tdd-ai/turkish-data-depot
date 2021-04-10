@@ -90,17 +90,14 @@ class Dataset(BaseModel):
     authors = models.CharField(max_length=256, verbose_name=_("authors"), help_text="comma seperated")
     release_date = models.DateField()
 
-    #auto generated
-    serial_number = models.CharField(max_length=10, verbose_name=_("serial number"))
-
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if self._state.adding:
-            serial_number = Dataset.objects.filter(release_date=date.today()).count() + 1
-            self.serial_number = "{0:0=4d}".format(serial_number)
-        self.catalog = "TDD--" + self.type.catalog_acronym + "--" + str(self.release_date.year) + str(self.release_date.month) + "--" + self.license.catalog_acronym + "--" + self.serial_number
+            serial_number = Dataset.objects.filter(create_date__date__month=date.today().month, type=self.type).count() + 1
+            serial_number = "{0:0=3d}".format(serial_number)
+            self.catalog = "TDD-" + self.type.catalog_acronym + "-" + str(date.today().year) + "{0:0=2d}".format(date.today().month) + "-" + self.license.catalog_acronym + "-" + serial_number
 
         return super(Dataset, self).save(*args, **kwargs)
 

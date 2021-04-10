@@ -21,7 +21,7 @@ class SourceSerializer(serializers.ModelSerializer):
         fields = ('name', 'description')
 
 
-class ForamtSerializer(serializers.ModelSerializer):
+class FormatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Format
         fields = ('name', 'description')
