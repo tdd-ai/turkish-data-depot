@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from datetime import date
 
+from users.models import User
 import uuid
 
 class Enum(BaseModel):
@@ -103,3 +104,25 @@ class Dataset(BaseModel):
 
     class Meta:
         ordering = ['release_date']
+
+
+class Download(BaseModel):
+    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, verbose_name=_("format"))
+    link_count = models.IntegerField( default=0, verbose_name=_("link count"))
+
+
+class FileItem(models.Model):
+    user = models.ForeignKey(User, default=1, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=120, null=True, blank=True)
+    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, verbose_name=_("dataset"))
+    path = models.TextField(blank=True, null=True)
+    size = models.BigIntegerField(default=0)
+    file_type = models.CharField(max_length=120, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    uploaded = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+
+    @property
+    def title(self):
+        return str(self.name)

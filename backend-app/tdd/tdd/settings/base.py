@@ -32,7 +32,9 @@ PREREQ_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 PROJECT_APPS = [
@@ -43,6 +45,7 @@ PROJECT_APPS = [
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,6 +75,7 @@ TEMPLATES = [
 	},
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
 WSGI_APPLICATION = 'tdd.wsgi.application'
 AUTH_USER_MODEL = 'users.User'
 
@@ -84,7 +88,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = "Europe/Istanbul"
 USE_I18N = True
@@ -106,5 +109,6 @@ LOCALE_PATHS = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
 }

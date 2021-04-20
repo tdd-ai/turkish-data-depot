@@ -22,6 +22,13 @@ class DatasetAdmin(admin.ModelAdmin):
     def has_module_permission(self, request):
         return True
 
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        if FileItem.objects.filter(dataset_id=object_id).count():
+            self.change_form_template = "admin/dataset_file_uploaded_form.html"
+        else:
+            self.change_form_template = 'admin/dataset_change_form.html'
+        return self.changeform_view(request, object_id, form_url, extra_context)
+
 class EnumAdmin(admin.ModelAdmin):
     model = Enum
     list_display = ('name', 'description')
@@ -70,3 +77,4 @@ admin.site.register(Compression, EnumAdmin)
 admin.site.register(License, CatalogEnumAdmin)
 
 admin.site.register(Dataset, DatasetAdmin)
+admin.site.register(FileItem)

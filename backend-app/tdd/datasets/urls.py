@@ -17,4 +17,8 @@ datasets_router.register('api/enum/licenses', LicenseViewSet)
 
 datasets_urlpatterns = [
     path("api/example", ExampleView.as_view(), name="example"),
+    url(r'^api/files/policy/$', FilePolicyAPI.as_view(), name='upload-policy'),
+    url(r'^api/files/complete/$', FileUploadCompleteHandler.as_view(), name='upload-complete'),
+    url(r'^upload/(?P<id>[^/]+)/$', FileUploadView.as_view(), name='upload-home'),
+    url(r'^api/files/download/$', DownloadFile.as_view(), name="download-file")
 ]
