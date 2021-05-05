@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Types from "../data/type.filter.json";
-import DataTypes from "../data/data-type.filter.json";
-import Annotation from "../data/annotation.filter.json";
-import Source from "../data/source.filter.json";
-import Compression from "../data/compression.filter.json";
-import License from "../data/license.filter.json";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import DummyData from "../data/dummy_data.json";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {
+  listAnnotations,
+  listCompressions,
+  listDataTypes,
+  listFormats,
+  listLicenses,
+  listSources,
+  listTypes,
+} from "../services/FilterService";
 
 const Styles = styled.div`
   display: flex;
@@ -111,32 +114,30 @@ const Styles = styled.div`
 
 const Filters = ({ title, filters }) => {
   const [isExpanded, setExpanded] = useState(false);
-  let keys = Object.keys(filters);
   const sliceSize = 4;
-
+  console.log(filters);
+  if (!filters) {
+    return <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>;
+  }
   return (
     <>
       <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>
       <div style={{ marginBottom: 20, width: "100%" }} className="tags-c">
-        {(isExpanded ? keys : keys.slice(0, sliceSize)).map((el) => {
+        {(isExpanded ? filters : filters.slice(0, sliceSize)).map((el) => {
           const renderTooltip = (props) => (
             <Tooltip id="button-tooltip" {...props}>
-              {filters[el]}
+              {el.description}
             </Tooltip>
           );
           return (
-            <OverlayTrigger
-              placement="top"
-              // delay={{ show: 250, hide: 400 }}
-              overlay={renderTooltip}
-            >
-              <div className="filter">{el}</div>
+            <OverlayTrigger placement="top" overlay={renderTooltip}>
+              <div className="filter">{el.name}</div>
             </OverlayTrigger>
           );
         })}
-        {keys.length - sliceSize > 0 && (
+        {filters.length - sliceSize > 0 && (
           <div onClick={() => setExpanded(!isExpanded)} className="expand">
-            {isExpanded ? "⇠" : keys.length - sliceSize + " more"}
+            {isExpanded ? "⇠" : filters.length - sliceSize + " more"}
           </div>
         )}
       </div>
@@ -155,17 +156,35 @@ const DatasetCard = ({ catalog, name, description }) => {
 };
 
 const Datasets = () => {
+  const [dataTypes, setDataTypes] = useState(null);
+  const [annotations, setAnnotations] = useState(null);
+  const [sources, setSources] = useState(null);
+  const [formats, setFormats] = useState(null);
+  const [compressions, setCompressions] = useState(null);
+  const [types, setTypes] = useState(null);
+  const [licenses, setLicenses] = useState(null);
+
+  useEffect(() => {
+    listDataTypes().then((r) => setDataTypes(r));
+    listAnnotations().then((r) => setAnnotations(r));
+    listSources().then((r) => setSources(r));
+    listFormats().then((r) => setFormats(r));
+    listCompressions().then((r) => setCompressions(r));
+    listTypes().then((r) => setTypes(r));
+    listLicenses().then((r) => setLicenses(r));
+  }, []);
   return (
     <Styles>
       <Row style={{ height: "100%" }}>
         <Col md={4} className="filters-c">
           <h2 className="datasets-title">Filters</h2>
-          <Filters title="Type" filters={Types} />
-          <Filters title="Data Types" filters={DataTypes} />
-          <Filters title="Annotation" filters={Annotation} />
-          <Filters title="Source" filters={Source} />
-          <Filters title="Compression Type" filters={Compression} />
-          <Filters title="License" filters={License} />
+          <Filters title="Types" filters={types} />
+          <Filters title="Data Types" filters={dataTypes} />
+          <Filters title="Annotations" filters={annotations} />
+          <Filters title="Sources" filters={sources} />
+          <Filters title="Compression Types" filters={compressions} />
+          <Filters title="Licenses" filters={licenses} />
+          <Filters title="Formats" filters={formats} />
         </Col>
         <Col md={8} className="datasets-c">
           <div
