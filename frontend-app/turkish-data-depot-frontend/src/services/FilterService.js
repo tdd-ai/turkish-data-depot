@@ -118,3 +118,20 @@ export const listLicenses = async () => {
   let resJson = await result.json();
   return resJson;
 };
+
+export const listDatasets = async () => {
+  let result = await fetch(FILTER_ROUTES.LIST_DATASETS, {
+    method: "GET",
+    url: FILTER_ROUTES.LIST_DATASETS,
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  let status = result.status;
+  if (status >= 400) {
+    let resText = await result.text();
+    throw resText;
+  }
+  let resJson = await result.json();
+  return resJson;
+};

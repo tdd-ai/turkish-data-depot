@@ -7,4 +7,5 @@ export const FILTER_ROUTES = Object.freeze({
   LIST_COMPRESSIONS: BASE_ADDRESS + "/enum/compressions/",
   LIST_TYPES: BASE_ADDRESS + "/enum/types/",
   LIST_LICENSES: BASE_ADDRESS + "/enum/licenses/",
+  LIST_DATASETS: BASE_ADDRESS + "/datasets",
 });

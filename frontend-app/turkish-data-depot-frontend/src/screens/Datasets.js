@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import DummyData from "../data/dummy_data.json";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {
   listAnnotations,
   listCompressions,
+  listDatasets,
   listDataTypes,
   listFormats,
   listLicenses,
@@ -115,7 +115,6 @@ const Styles = styled.div`
 const Filters = ({ title, filters }) => {
   const [isExpanded, setExpanded] = useState(false);
   const sliceSize = 4;
-  console.log(filters);
   if (!filters) {
     return <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>;
   }
@@ -145,12 +144,12 @@ const Filters = ({ title, filters }) => {
   );
 };
 
-const DatasetCard = ({ catalog, name, description }) => {
+const DatasetCard = ({ catalog, name, short_description }) => {
   return (
     <Col md={5} className="datasetcard">
       <div className="dataset-name">{name}</div>
       <h3>{catalog}</h3>
-      <div className="dataset-desc">{description}</div>
+      <div className="dataset-desc">{short_description}</div>
     </Col>
   );
 };
@@ -163,6 +162,7 @@ const Datasets = () => {
   const [compressions, setCompressions] = useState(null);
   const [types, setTypes] = useState(null);
   const [licenses, setLicenses] = useState(null);
+  const [datasets, setDatasets] = useState(null);
 
   useEffect(() => {
     listDataTypes().then((r) => setDataTypes(r));
@@ -172,6 +172,7 @@ const Datasets = () => {
     listCompressions().then((r) => setCompressions(r));
     listTypes().then((r) => setTypes(r));
     listLicenses().then((r) => setLicenses(r));
+    listDatasets().then((r) => setDatasets(r));
   }, []);
   return (
     <Styles>
@@ -202,7 +203,7 @@ const Datasets = () => {
             />
           </div>
           <Row>
-            {DummyData.map((i) => (
+            {datasets?.map((i) => (
               <DatasetCard {...i} />
             ))}
           </Row>
