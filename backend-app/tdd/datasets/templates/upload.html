@@ -86,29 +86,88 @@
                 return file
             case 'bz2':
                 return file
+            case 'txt':
+                return file
             default:
                 notAllowedFiles.push(file)
                 return null
         }
     };
     
-    function constructFormPolicyData(policyData, fileItem) {
-       var contentType = fileItem.type != '' ? fileItem.type : 'application/octet-stream'
+    function constructFormPolicyAndUpload(policyData, fileItem) {
         var url = policyData.url
         var filename = policyData.filename
-        var repsonseUser = policyData.user
-        // var keyPath = 'www/' + repsonseUser + '/' + filename
-        var keyPath = policyData.file_bucket_path
+
         var fd = new FormData()
-        fd.append('key', keyPath + filename);
-        fd.append('acl','private');
-        fd.append('Content-Type', contentType);
-        fd.append("AWSAccessKeyId", policyData.key)
-        fd.append('Policy', policyData.policy);
-        fd.append('filename', filename);
-        fd.append('Signature', policyData.signature);
-        fd.append('file', fileItem);
-        return fd
+        fd.append('url', url + filename)
+
+        const shaObj = new jsSHA("SHA-256", "BYTES");
+        var reader = new FileReader();
+        reader.readAsBinaryString(fileItem);
+        reader.onloadend = function () {
+
+            shaObj.update(reader.result);
+            const hash = shaObj.getHash("HEX");
+            fd.append('hash',hash)
+            console.log(hash)
+            $.ajax({
+                method:"POST",
+                data: fd,
+                contentType: false,
+                processData: false,
+                headers: {"Authorization": "Token " + "{{token}}"},
+                url: "/api/files/headers/",
+                success: function(data){
+                    fd.append('data', fileItem);
+                    fd.append('headers', data)
+
+                    var xhr = new XMLHttpRequest()
+
+                    // construct callback for when uploading starts
+                    xhr.upload.onloadstart = function(event){
+                        var inLoadingIndex = $.inArray(fileItem, fileItemList)
+                        if (inLoadingIndex == -1){
+                            // Item is not loading, add to inProgress queue
+                            newLoadingItem = {
+                                file: fileItem,
+                                id: policyData.file_id,
+                                order: fileItemList.length + 1
+                            }
+                            fileItemList.push(newLoadingItem)
+                        }
+                        fileItem.xhr = xhr
+                    }
+        
+                    // Monitor upload progress and attach to fileItem.
+                    xhr.upload.addEventListener("progress", function(event){
+                        if (event.lengthComputable) {
+                        var progress = Math.round(event.loaded / event.total * 100);
+                            fileItem.progress = progress
+                            displayItems(fileItemList)
+                        }
+                    })
+        
+                    xhr.upload.addEventListener("load", function(event){
+                        console.log("Complete")
+                        // handle FileItem Upload being complete.
+                        fileUploadComplete(fileItem, policyData)
+        
+                    })
+                    
+                    xhr.open('PUT', fd.get('url') , true);
+                    
+                    for (const [key, value] of Object.entries(data)){
+                        xhr.setRequestHeader(key,value)
+                    }
+                    
+                    xhr.send(fd.get('data'));
+                },
+                error: function(data){
+                    alert("An error occured, please try again later")
+                }
+            })
+        }
+        return
     }
     
     function fileUploadComplete(fileItem, policyData){
@@ -125,6 +184,7 @@
             url: "/api/files/complete/",
             success: function(data){
                 displayItems(fileItemList)
+                // window.history.back()
             },
             error: function(jqXHR, textStatus, errorThrown){ 
                 alert("An error occured, please refresh the page.")
@@ -168,46 +228,9 @@
                     alert("An error occured, please try again later")
                 }
             }).done(function(){
-                // window.history.back()
-                // construct the needed data using the policy for AWS
-                var fd = constructFormPolicyData(policyData, fileItem)
-                
-                // use XML http Request to Send to AWS. 
-                var xhr = new XMLHttpRequest()
-    
-                // construct callback for when uploading starts
-                xhr.upload.onloadstart = function(event){
-                    var inLoadingIndex = $.inArray(fileItem, fileItemList)
-                    if (inLoadingIndex == -1){
-                        // Item is not loading, add to inProgress queue
-                        newLoadingItem = {
-                            file: fileItem,
-                            id: policyData.file_id,
-                            order: fileItemList.length + 1
-                        }
-                        fileItemList.push(newLoadingItem)
-                      }
-                    fileItem.xhr = xhr
-                }
-    
-                // Monitor upload progress and attach to fileItem.
-                xhr.upload.addEventListener("progress", function(event){
-                    if (event.lengthComputable) {
-                     var progress = Math.round(event.loaded / event.total * 100);
-                        fileItem.progress = progress
-                        displayItems(fileItemList)
-                    }
-                })
-    
-                xhr.upload.addEventListener("load", function(event){
-                    console.log("Complete")
-                    // handle FileItem Upload being complete.
-                    fileUploadComplete(fileItem, policyData)
-    
-                })
-    
-                xhr.open('POST', policyData.url , true);
-                xhr.send(fd);
+                // 
+                // construct and upload to s3 the needed data using the policy for AWS
+                constructFormPolicyAndUpload(policyData, fileItem)
             })
     }});
     </script>
