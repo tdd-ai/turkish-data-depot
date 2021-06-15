@@ -21,5 +21,6 @@ datasets_urlpatterns = [
     url(r'^api/files/headers/$', FileItemHeaders.as_view(), name='file-headers'),
     url(r'^api/files/complete/$', FileUploadCompleteHandler.as_view(), name='upload-complete'),
     url(r'^upload/(?P<id>[^/]+)/$', FileUploadView.as_view(), name='upload-home'),
+    url(r'^delete/(?P<id>[^/]+)/$', delete_file, name='delete-file'),
     url(r'^api/files/download/$', DownloadFile.as_view(), name="download-file")
 ]

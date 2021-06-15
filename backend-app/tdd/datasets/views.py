@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http.response import JsonResponse
+from django.http import HttpResponseRedirect
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -264,3 +265,14 @@ class DownloadFile(APIView):
         download.link_count += 1
         download.save() 
         return JsonResponse({"url": url},safe=False)  
+
+
+def delete_file(request, id):
+    fileItem = FileItem.objects.get(dataset_id=id)
+    REGION_HOST = 's3.{}.amazonaws.com'.format(AWS_UPLOAD_REGION)
+    conn = boto.connect_s3(AWS_UPLOAD_ACCESS_KEY_ID, AWS_UPLOAD_SECRET_KEY, host=REGION_HOST)
+    bucket = conn.get_bucket(AWS_UPLOAD_BUCKET)
+    for key in bucket.list(prefix=fileItem.path):
+        key.delete()
+    fileItem.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

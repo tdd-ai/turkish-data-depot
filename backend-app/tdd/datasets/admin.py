@@ -68,6 +68,12 @@ class CatalogEnumAdmin(admin.ModelAdmin):
     def has_module_permission(self, request):
         return True
 
+
+class FileItemAdmin(admin.ModelAdmin):
+    model = FileItem
+    list_display = ('dataset',)
+
+
 admin.site.register(Type, CatalogEnumAdmin)
 admin.site.register(DataType, EnumAdmin)
 admin.site.register(Annotation, EnumAdmin)
@@ -77,4 +83,4 @@ admin.site.register(Compression, EnumAdmin)
 admin.site.register(License, CatalogEnumAdmin)
 
 admin.site.register(Dataset, DatasetAdmin)
-admin.site.register(FileItem)
+admin.site.register(FileItem, FileItemAdmin)
