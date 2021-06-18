@@ -269,10 +269,5 @@ class DownloadFile(APIView):
 
 def delete_file(request, id):
     fileItem = FileItem.objects.get(dataset_id=id)
-    REGION_HOST = 's3.{}.amazonaws.com'.format(AWS_UPLOAD_REGION)
-    conn = boto.connect_s3(AWS_UPLOAD_ACCESS_KEY_ID, AWS_UPLOAD_SECRET_KEY, host=REGION_HOST)
-    bucket = conn.get_bucket(AWS_UPLOAD_BUCKET)
-    for key in bucket.list(prefix=fileItem.path):
-        key.delete()
     fileItem.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

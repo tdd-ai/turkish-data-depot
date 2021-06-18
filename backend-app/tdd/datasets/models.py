@@ -1,3 +1,4 @@
+import boto
 from django.db import models
 from tdd.models import BaseModel
 from django.conf import settings
@@ -6,6 +7,12 @@ from datetime import date
 
 from users.models import User
 import uuid
+from .config_aws import (
+    AWS_UPLOAD_BUCKET,
+    AWS_UPLOAD_REGION,
+    AWS_UPLOAD_ACCESS_KEY_ID,
+    AWS_UPLOAD_SECRET_KEY
+)
 
 class Enum(BaseModel):
     """This abstract model, will represent a dynamic enumeration that can be expanded in the future"""
@@ -102,6 +109,12 @@ class Dataset(BaseModel):
 
         return super(Dataset, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        fileItem = FileItem.objects.get(dataset=self)
+        fileItem.delete()
+        return super(Dataset,self).delete(*args, **kwargs)
+
+
     class Meta:
         ordering = ['release_date']
 
@@ -126,3 +139,11 @@ class FileItem(models.Model):
     @property
     def title(self):
         return str(self.name)
+
+    def delete(self, *args, **kwargs):
+        REGION_HOST = 's3.{}.amazonaws.com'.format(AWS_UPLOAD_REGION)
+        conn = boto.connect_s3(AWS_UPLOAD_ACCESS_KEY_ID, AWS_UPLOAD_SECRET_KEY, host=REGION_HOST)
+        bucket = conn.get_bucket(AWS_UPLOAD_BUCKET)
+        for key in bucket.list(prefix=self.path):
+            key.delete()
+        return super(FileItem,self).delete(*args, **kwargs)
