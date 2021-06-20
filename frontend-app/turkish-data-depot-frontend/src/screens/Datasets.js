@@ -60,6 +60,10 @@ const Styles = styled.div`
     color: rgba(156, 87, 0);
     font-weight: 500;
   }
+  .selected-filter {
+    background-color: #f8f8f8;
+    color: #9c9c9c;
+  }
   .tags-c {
     display: flex;
     flex-direction: row;
@@ -112,12 +116,28 @@ const Styles = styled.div`
   }
 `;
 
-const Filters = ({ title, filters }) => {
+const Filters = ({ title, filters, filter, setFilter, k }) => {
   const [isExpanded, setExpanded] = useState(false);
   const sliceSize = 4;
   if (!filters) {
     return <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>;
   }
+  const updateFilter = (e, t) => {
+    let toSet = [...filter[k]];
+    if (isSelected(e.name)) {
+      toSet = toSet.filter((i) => i !== e.name);
+    } else {
+      toSet.push(e.name);
+    }
+    setFilter({
+      ...filter,
+      [k]: toSet,
+    });
+  };
+
+  const isSelected = (key) => {
+    return filter[k].includes(key);
+  };
   return (
     <>
       <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>
@@ -130,7 +150,16 @@ const Filters = ({ title, filters }) => {
           );
           return (
             <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <div className="filter">{el.name}</div>
+              <div
+                onClick={() => {
+                  updateFilter(el, title);
+                }}
+                className={
+                  isSelected(el.name) ? "filter" : "selected-filter filter"
+                }
+              >
+                {el.name}
+              </div>
             </OverlayTrigger>
           );
         })}
@@ -163,6 +192,20 @@ const Datasets = () => {
   const [types, setTypes] = useState(null);
   const [licenses, setLicenses] = useState(null);
   const [datasets, setDatasets] = useState(null);
+  const [filter, _setFilter] = useState({
+    types: [],
+    "data-types": [],
+    annotations: [],
+    sources: [],
+    compressions: [],
+    licenses: [],
+    formats: [],
+  });
+
+  const setFilter = (f) => {
+    _setFilter(f);
+    listDatasets(f).then((r) => setDatasets(r));
+  };
 
   useEffect(() => {
     listDataTypes().then((r) => setDataTypes(r));
@@ -179,13 +222,55 @@ const Datasets = () => {
       <Row style={{ height: "100%" }}>
         <Col md={4} className="filters-c">
           <h2 className="datasets-title">Filters</h2>
-          <Filters title="Types" filters={types} />
-          <Filters title="Data Types" filters={dataTypes} />
-          <Filters title="Annotations" filters={annotations} />
-          <Filters title="Sources" filters={sources} />
-          <Filters title="Compression Types" filters={compressions} />
-          <Filters title="Licenses" filters={licenses} />
-          <Filters title="Formats" filters={formats} />
+          <Filters
+            title="Types"
+            filters={types}
+            k={"types"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Data Types"
+            filters={dataTypes}
+            k={"data-types"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Annotations"
+            filters={annotations}
+            k={"annotations"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Sources"
+            filters={sources}
+            k={"sources"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Compression Types"
+            filters={compressions}
+            k={"compressions"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Licenses"
+            filters={licenses}
+            k={"licenses"}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <Filters
+            title="Formats"
+            filters={formats}
+            k={"formats"}
+            filter={filter}
+            setFilter={setFilter}
+          />
         </Col>
         <Col md={8} className="datasets-c">
           <div

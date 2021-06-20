@@ -119,8 +119,17 @@ export const listLicenses = async () => {
   return resJson;
 };
 
-export const listDatasets = async () => {
-  let result = await fetch(FILTER_ROUTES.LIST_DATASETS, {
+export const listDatasets = async (filters) => {
+  let searchParams = {};
+  let searchString = "";
+  if (filters) {
+    Object.keys(filters)
+      .filter((k) => filters[k] && filters[k].length)
+      .forEach((k) => (searchParams[k] = filters[k].join(",")));
+    searchString = "?" + new URLSearchParams(searchParams).toString();
+  }
+
+  let result = await fetch(FILTER_ROUTES.LIST_DATASETS + searchString, {
     method: "GET",
     url: FILTER_ROUTES.LIST_DATASETS,
     headers: {
