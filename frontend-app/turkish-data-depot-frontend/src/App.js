@@ -16,7 +16,7 @@ function App() {
     <Styles>
       <NavigationBar />
       <Switch>
-        <Route path="/datasets">
+        <Route path="/">
           <Datasets />
         </Route>
       </Switch>
