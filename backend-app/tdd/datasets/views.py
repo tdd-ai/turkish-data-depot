@@ -87,7 +87,7 @@ class DatasetViewSet(viewsets.ModelViewSet):
     serializer_class = DatasetDetailSerializer
 
     def get_queryset(self):
-        queryset = Dataset.objects.all()
+        queryset = Dataset.objects.filter(is_visible=True)
 
         name = self.request.query_params.get('name')
         if name is not None:
