@@ -179,6 +179,7 @@ const DatasetCard = ({ catalog, name, short_description }) => {
       <div className="dataset-name">{name}</div>
       <h3>{catalog}</h3>
       <div className="dataset-desc">{short_description}</div>
+      <button className="download-button">Download</button>
     </Col>
   );
 };
