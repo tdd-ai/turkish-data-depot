@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "dc496253-6ef8-421c-ab28-4e4c7baacdeb",
+		"name": "Turkish Data Depot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List & Filter Datasets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/datasets?formats=json&types=word-vectors,corpus&annotations=pos-tagged,tokenized-whitespace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"datasets"
+					],
+					"query": [
+						{
+							"key": "formats",
+							"value": "json"
+						},
+						{
+							"key": "types",
+							"value": "word-vectors,corpus"
+						},
+						{
+							"key": "data-types",
+							"value": "text,video",
+							"disabled": true
+						},
+						{
+							"key": "sources",
+							"value": "academic,social-media",
+							"disabled": true
+						},
+						{
+							"key": "licenses",
+							"value": "cc,mit",
+							"disabled": true
+						},
+						{
+							"key": "compressions",
+							"value": ".tar.gz,.gz",
+							"disabled": true
+						},
+						{
+							"key": "annotations",
+							"value": "pos-tagged,tokenized-whitespace"
+						},
+						{
+							"key": "name",
+							"value": "TeSt",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detail Dataset",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/datasets/34494642-5cb6-4a9c-bc88-bff02d1aee33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"datasets",
+						"34494642-5cb6-4a9c-bc88-bff02d1aee33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List DataTypes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/data-types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"data-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Annotations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/annotations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"annotations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Sources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/sources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"sources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Formats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/formats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"formats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Compressions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/compressions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"compressions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Types",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Licenses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/api/enum/licenses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"enum",
+						"licenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4NTg2OTI4LCJqdGkiOiI0NmM2YzkxYzlkZDg0Y2VhOWEwMDQ3MWY5ZmUyYTg5ZCIsInVzZXJfaWQiOiIwNTY2MDAwNC03NWI0LTQzOTgtODcyMC1mNzQ5NDRjODVlZGEiLCJhdWQiOlsiMDAxIl19.M_FchpJhAUKiNH8fnyQcE9jS1zoYUBZmfHAMLbG2Bj9LdMBgwivlE_dyGhDb2mcXGf3DNTOlJrOYpUDMO7AWV3BiX96SfhJR1C6qEAYub4tfaoV1_Bn3JXGb5k9MNv5JmgHRyvBrX0F4zuuaRnFkGhcmpeQ0CvEPAs-UvP4Gh2yQtNixo8-j8acjLNXo9a_Vahh9a2zjpfsRg0t9SycuOQKQ0pAzr-aX2u8vb2vEtK53rUqAe-SzucgeXgTKdBv8N5HFOjbhH5fA1itQ9Hu2bDEQrSfrC9zUX3SjV52jEym15MKvyB67n4RE3iN1hmFMMl6Z0okR8Rg4zbUOQAkOgKdoJWsTTo4KpiMhRIRm8WKKTYbnK_WuJIsglcxDGvdK8MmXPiLosLCzkGUTROQOjX7Ujfz6BLdnT8qy4A_4zVa7qDqfD-5h7smVlELDFkov6ryr8oXmejWXTudl49L9Pmlz1uZmOlmmJhBuEDAHXByi9dGkhIFP5RNHYkOPTIpwJFLyEu8OtVaaP-3GCy41PJsgRYqjzew6G0anfVxgM2biEXCqbLVV2M3vXHuqsSJqQn0HanWp6UqlWXhVOdrxjHPKU49UIOA2SkljPYibDU6_jrwr9Iok7Uk2-NFpYTZUHNlSHEwdBiLapZJGzeKMpbC0EgF5yOu1v08nwbMt1vs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token f457e3d6f871f312e5a0b689f3f1f4661adfd11e",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:7000/api/example",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"example"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Files Policy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token f457e3d6f871f312e5a0b689f3f1f4661adfd11e",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filename\": \"filename.rar\",\n    \"dataset\": \"3a62b6c4-f887-4d46-8c44-6512b4abf976\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/api/files/policy/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"files",
+						"policy",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:7000/api/files/download/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "Token f457e3d6f871f312e5a0b689f3f1f4661adfd11e",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dataset\": \"34494642-5cb6-4a9c-bc88-bff02d1aee33\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/api/files/download/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"files",
+						"download",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

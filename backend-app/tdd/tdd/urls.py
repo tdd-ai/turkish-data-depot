@@ -19,19 +19,22 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf import settings
 
-from .apis import GetToken
 from .views import ApplicationView, favicon_view
-from datasets.urls import datasets_router, datasets_urlpatterns
 
 urlpatterns = [
 	re_path(r"^$", ApplicationView.as_view(), name="Application"),
 	path('admin/', admin.site.urls),
-	path('favicon.ico', favicon_view),
-	path('get-token/', GetToken.as_view(), name="get-token"),
+	path('favicon.ico', favicon_view, name='favicon'),
 ]
+
+from datasets.urls import datasets_router, datasets_urlpatterns
 
 urlpatterns += datasets_router.urls
 urlpatterns += datasets_urlpatterns
+
+from users.urls import users_urlpatterns
+
+urlpatterns += users_urlpatterns
 
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

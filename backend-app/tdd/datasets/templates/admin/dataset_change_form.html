@@ -1,0 +1,8 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block object-tools-items %}
+	<li>
+		<a href="/upload/{{original.id}}" class="historylink">{% trans "Upload File" %}</a>
+	</li>
+{% endblock %}

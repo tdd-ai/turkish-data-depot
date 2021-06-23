@@ -1,0 +1,388 @@
+{
+    "types": [
+        {
+            "value": "corpus",
+            "description": "unannotated text corpus of any format",
+            "catalog_acronym": "C"
+        },
+        {
+            "value": "parallel-corpus",
+            "description": "aligned translations of text of two languages or more",
+            "catalog_acronym": "PC"
+        },
+        {
+            "value": "morphology-tagged-corpus",
+            "description": "PoS tagged, lemmatized, morphologically disambiguated text",
+            "catalog_acronym": "MTC"
+        },
+        {
+            "value": "treebank",
+            "description": "turkish wordnet etc..",
+            "catalog_acronym": "TB"
+        },
+        {
+            "value": "dictionary",
+            "description": "dictionary",
+            "catalog_acronym": "D"
+        },
+        {
+            "value": "lexicon",
+            "description": "lexicon, a set of vocabulary",
+            "catalog_acronym": "L"
+        },
+        {
+            "value": "word-vectors",
+            "description": "set of pretrained word vectors",
+            "catalog_acronym": "WV"
+        },
+        {
+            "value": "language-model",
+            "description": "pretrained weights of language model",
+            "catalog_acronym": "LM"
+        },
+        {
+            "value": "morphology-model",
+            "description": "software or model for morphological anaylsis",
+            "catalog_acronym": "MM"
+        },
+        {
+            "value": "parser",
+            "description": "software or model for dependency parsing",
+            "catalog_acronym": "PR"
+        },
+        {
+            "value": "machine-translation-model",
+            "description": "software or model",
+            "catalog_acronym": "MT"
+        },
+        {
+            "value": "nlp-toolkit",
+            "description": "toolkit for turkish/generic nlp",
+            "catalog_acronym": "NLP"
+        },
+        {
+            "value": "ner-tagger",
+            "description": "named entity recognition tagging software or model",
+            "catalog_acronym": "NT"
+        },
+        {
+            "value": "rdf-triples",
+            "description": "rdf triples, knowledge graphs and information retrieval",
+            "catalog_acronym": "RDF"
+        }
+    ],
+    "data_types": [
+        {
+            "value": "text",
+            "description": "raw or annotated text"
+        },
+        {
+            "value": "video",
+            "description": "short/long videos"
+        },
+        {
+            "value": "image",
+            "description": "visual files"
+        },
+        {
+            "value": "audio",
+            "description": "audio"
+        }
+    ],
+    "annotations": [
+        {
+            "value": "raw-text",
+            "description": "Unannotated"
+        },
+        {
+            "value": "tokenized-word-perline",
+            "description": "Tokenized with a format that has a word for every line"
+        },
+        {
+            "value": "tokenized-whitespace",
+            "description": "Tokenized with a format that is seperated to units including punctiation marks"
+        },
+        {
+            "value": "sentenced-marked",
+            "description": "Starting and ending of the sentences are marked"
+        },
+        {
+            "value": "pos-tagged",
+            "description": "word types are tagged"
+        },
+        {
+            "value": "morphologically-annotated",
+            "description": "contains Morpheme tag"
+        },
+        {
+            "value": "dependency-annotation",
+            "description": "contains Dependency analyse information tag"
+        },
+        {
+            "value": "syntactically-annotated",
+            "description": "tagged at Syntactical level"
+        },
+        {
+            "value": "statistics",
+            "description": "Contains statistical information"
+        }
+    ],
+    "sources": [
+        {
+            "value": "varied",
+            "description": "varied sources"
+        },
+        {
+            "value": "wiki",
+            "description": "includes all types of wikis"
+        },
+        {
+            "value": "news-paper",
+            "description": "online news resource"
+        },
+        {
+            "value": "academic",
+            "description": "using research papers online"
+        },
+        {
+            "value": "books",
+            "description": "using online books"
+        },
+        {
+            "value": "user-generated",
+            "description": "reviews or comments of internet users (amazon, imdb etc.)"
+        },
+        {
+            "value": "social-media",
+            "description": "twitter tweets"
+        },
+        {
+            "value": "emails",
+            "description": "sent emails"
+        },
+        {
+            "value": "dialog",
+            "description": "short messages sms or chats"
+        },
+        {
+            "value": "web-collection",
+            "description": "crawled from web which can contain extracted or raw web pages"
+        }
+    ],
+    "compressions": [
+        {
+            "value": ".tar.gz",
+            "description": "tarball with gzip"
+        },
+        {
+            "value": ".gz",
+            "description": "gzip"
+        },
+        {
+            "value": ".tar",
+            "description": "tarball"
+        },
+        {
+            "value": ".zip",
+            "description": "zip"
+        },
+        {
+            "value": ".bz2",
+            "description": "bzip2"
+        }
+    ],
+    "formats": [
+        {
+            "value": "xml",
+            "description": "Extensible Markup Language"
+        },
+        {
+            "value": "json",
+            "description": "JavaScript Object Notation"
+        },
+        {
+            "value": "jsonlines",
+            "description": "json object per line"
+        },
+        {
+            "value": "txt",
+            "description": "raw text"
+        },
+        {
+            "value": "bin",
+            "description": "binary data"
+        }
+    ],
+    "licenses": [
+        {
+            "value": "afl-3.0",
+            "description": "Academic Free License v3.0",
+            "catalog_acronym": "AFL"
+        },
+        {
+            "value": "apache-2.0",
+            "description": "Apache license 2.0",
+            "catalog_acronym": "APC"
+        },
+        {
+            "value": "artistic-2.0",
+            "description": "Artistic license 2.0",
+            "catalog_acronym": "ART"
+        },
+        {
+            "value": "bsl-1.0",
+            "description": "Boost Software License 1.0",
+            "catalog_acronym": "BSL"
+        },
+        {
+            "value": "bsd-2-clause",
+            "description": "BSD 2-clause \"Simplified\" license",
+            "catalog_acronym": "BSD"
+        },
+        {
+            "value": "bsd-3-clause",
+            "description": "BSD 3-clause \"New\" or \"Revised\" license",
+            "catalog_acronym": "BSD"
+        },
+        {
+            "value": "bsd-3-clause-clear",
+            "description": "BSD 3-clause Clear license",
+            "catalog_acronym": "BSD"
+        },
+        {
+            "value": "cc",
+            "description": "Creative Commons license family",
+            "catalog_acronym": "CC"
+        },
+        {
+            "value": "cc0-1.0",
+            "description": "Creative Commons Zero v1.0 Universal",
+            "catalog_acronym": "CC"
+        },
+        {
+            "value": "cc-by-4.0",
+            "description": "Creative Commons Attribution 4.0",
+            "catalog_acronym": "CC"
+        },
+        {
+            "value": "cc-by-sa-4.0",
+            "description": "Creative Commons Attribution Share Alike 4.0",
+            "catalog_acronym": "CC"
+        },
+        {
+            "value": "wtfpl",
+            "description": "Do What The F*ck You Want To Public License",
+            "catalog_acronym": "PL"
+        },
+        {
+            "value": "ecl-2.0",
+            "description": "Educational Community License v2.0",
+            "catalog_acronym": "ECL"
+        },
+        {
+            "value": "epl-1.0",
+            "description": "Eclipse Public License 1.0",
+            "catalog_acronym": "EPL"
+        },
+        {
+            "value": "epl-2.0",
+            "description": "Eclipse Public License 2.0",
+            "catalog_acronym": "EPL"
+        },
+        {
+            "value": "eupl-1.1",
+            "description": "European Union Public License 1.1",
+            "catalog_acronym": "EUPL"
+        },
+        {
+            "value": "agpl-3.0",
+            "description": "GNU Affero General Public License v3.0",
+            "catalog_acronym": "AGPL"
+        },
+        {
+            "value": "gpl",
+            "description": "GNU General Public License family",
+            "catalog_acronym": "GPL"
+        },
+        {
+            "value": "gpl-2.0",
+            "description": "GNU General Public License v2.0",
+            "catalog_acronym": "GPL"
+        },
+        {
+            "value": "gpl-3.0",
+            "description": "GNU General Public License v3.0",
+            "catalog_acronym": "GPL"
+        },
+        {
+            "value": "lgpl",
+            "description": "GNU Lesser General Public License family",
+            "catalog_acronym": "LGPL"
+        },
+        {
+            "value": "lgpl-2.1",
+            "description": "GNU Lesser General Public License v2.1",
+            "catalog_acronym": "LGPL"
+        },
+        {
+            "value": "lgpl-3.0",
+            "description": "GNU Lesser General Public License v3.0",
+            "catalog_acronym": "LGPL"
+        },
+        {
+            "value": "isc",
+            "description": "ISC",
+            "catalog_acronym": "ISC"
+        },
+        {
+            "value": "lppl-1.3c",
+            "description": "LaTeX Project Public License v1.3c",
+            "catalog_acronym": "LPPL"
+        },
+        {
+            "value": "ms-pl",
+            "description": "Microsoft Public License",
+            "catalog_acronym": "MSPL"
+        },
+        {
+            "value": "mit",
+            "description": "MIT",
+            "catalog_acronym": "MIT"
+        },
+        {
+            "value": "mpl-2.0",
+            "description": "Mozilla Public License 2.0",
+            "catalog_acronym": "MPL"
+        },
+        {
+            "value": "osl-3.0",
+            "description": "Open Software License 3.0",
+            "catalog_acronym": "OSL"
+        },
+        {
+            "value": "postgresql",
+            "description": "PostgreSQL License",
+            "catalog_acronym": "PSQL"
+        },
+        {
+            "value": "ofl-1.1",
+            "description": "SIL Open Font License 1.1",
+            "catalog_acronym": "OFL"
+        },
+        {
+            "value": "ncsa",
+            "description": "University of Illinois/NCSA Open Source License",
+            "catalog_acronym": "NCSA"
+        },
+        {
+            "value": "unlicense",
+            "description": "The Unlicense",
+            "catalog_acronym": "UNL"
+        },
+        {
+            "value": "zlib",
+            "description": "zLib License",
+            "catalog_acronym": "ZLIB"
+        }
+    ]
+}

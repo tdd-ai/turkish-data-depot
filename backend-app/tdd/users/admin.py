@@ -1,34 +1,32 @@
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Group as DGroup
-from django.contrib.auth.admin import GroupAdmin, UserAdmin
-from django.contrib import admin
-
+from django.contrib.auth.admin import UserAdmin
 from rest_framework.authtoken.models import Token
-from .models import User, DjangoGroup
-from .forms import UserForm
+from django.contrib.auth.models import Group
+from django.contrib import admin
+from users.models import User
 
 
-class CustomUserAdmin(admin.ModelAdmin):
-	list_display = ("email", "first_name", "last_name", "create_date")
-	fields = ("email", "first_name", "last_name", "password1", "password2")
-	search_fields = ("email", "first_name", "last_name")
-	readonly_fields = ("create_date", "update_date")
-	form = UserForm
+class CustomUserAdmin(UserAdmin):
+    ordering = ('id',)
+    list_display = ('id', 'first_name', 'last_name', 'email',
+                    'is_staff')
+    list_display_links = ('id', 'first_name', 'last_name', 'email')
+    list_filter = ('is_staff',)
 
-	def save_model(self, request, obj, form, change):
+    fieldsets = (
+        (None, {'fields': ('password', 'email')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'affiliation')}),
+        ('User Details', {'fields': ('is_staff',)}),
+    )
 
-		if self.user_type == 1:
-			obj.is_staff = True
-			obj.is_superuser = True
-
-		obj.user_type = self.user_type
-		obj.save()
-
-
-@admin.register(User)
-class UserAdmin(CustomUserAdmin):
-	user_type = 2
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'first_name', 'last_name', 'affiliation',
+                       'password1', 'password2'),
+        }),
+    )
 
 
-admin.site.unregister(DGroup)
-# admin.site.unregister(Token)
+admin.site.register(User, CustomUserAdmin)
+admin.site.unregister(Token)
+admin.site.unregister(Group)
