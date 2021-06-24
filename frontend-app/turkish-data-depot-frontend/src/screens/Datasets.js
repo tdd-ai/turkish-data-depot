@@ -14,6 +14,8 @@ import {
   listSources,
   listTypes,
 } from "../services/FilterService";
+import StorageService from "../services/StorageService";
+import { downloadDataset } from "../services/DatasetService";
 
 const Styles = styled.div`
   display: flex;
@@ -28,6 +30,7 @@ const Styles = styled.div`
   .datasetcard {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     margin: 10px;
     padding: 12px;
     background: rgba(77, 199, 239, 0.6);
@@ -114,6 +117,23 @@ const Styles = styled.div`
       border-color: rgba(77, 199, 239);
     }
   }
+  .download-button {
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1.2;
+    background-color: rgba(248, 151, 28);
+    &:hover {
+      background-color: rgba(248, 151, 28, 0.3);
+    }
+    color: rgba(156, 87, 0);
+    font-weight: 500;
+  }
 `;
 
 const Filters = ({ title, filters, filter, setFilter, k }) => {
@@ -173,18 +193,30 @@ const Filters = ({ title, filters, filter, setFilter, k }) => {
   );
 };
 
-const DatasetCard = ({ catalog, name, short_description }) => {
+const DatasetCard = ({ id, catalog, name, short_description }) => {
+  const onDownload = () => {
+    downloadDataset(id).then((r) => console.log(r));
+  };
   return (
     <Col md={5} className="datasetcard">
       <div className="dataset-name">{name}</div>
       <h3>{catalog}</h3>
       <div className="dataset-desc">{short_description}</div>
-      <button className="download-button">Download</button>
+      <button onClick={onDownload} className="download-button">
+        Download
+      </button>
     </Col>
   );
 };
 
 const Datasets = () => {
+  const url = window.location.href;
+  const toDownloadId = (/\?id=([\s\S]*)\?token/.exec(url) || [])[1];
+  const token = (/\?token=([\s\S]*)/.exec(url) || [])[1];
+  if (token) {
+    StorageService.saveAccessToken(token);
+  }
+
   const [dataTypes, setDataTypes] = useState(null);
   const [annotations, setAnnotations] = useState(null);
   const [sources, setSources] = useState(null);
@@ -216,8 +248,16 @@ const Datasets = () => {
     listCompressions().then((r) => setCompressions(r));
     listTypes().then((r) => setTypes(r));
     listLicenses().then((r) => setLicenses(r));
-    listDatasets().then((r) => setDatasets(r));
-  }, []);
+    listDatasets().then((r) => {
+      setDatasets(r);
+    });
+    if (toDownloadId) {
+      downloadDataset(toDownloadId).then((r) => {
+        console.log(r);
+      });
+    }
+  }, [url]);
+
   return (
     <Styles>
       <Row style={{ height: "100%" }}>

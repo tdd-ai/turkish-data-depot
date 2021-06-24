@@ -1,19 +1,37 @@
-import { DATASET_ROUTES } from "../constants/Routes";
+import { AUTH_ROUTES, DATASET_ROUTES } from "../constants/Routes";
+import StorageService from "./StorageService";
 
-export const downloadDataset = async () => {
-  let result = await fetch(DATASET_ROUTES.DOWNLOAD, {
-    method: "POST",
-    url: DATASET_ROUTES.DOWNLOAD,
-    headers: {
-      Accept: "application/json",
-      Authorization: localStorage.getItem("token"),
-    },
-  });
-  let status = result.status;
-  if (status >= 400) {
-    let resText = await result.text();
-    throw resText;
+export const downloadDataset = async (id) => {
+  try {
+    const token = StorageService.getAccessToken();
+    if (!token || token === "") {
+      window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}?id=${id}`;
+      return;
+    }
+    let result = await fetch(DATASET_ROUTES.DOWNLOAD, {
+      method: "POST",
+      url: DATASET_ROUTES.DOWNLOAD,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify({
+        dataset: id,
+      }),
+    });
+    let status = result.status;
+    if (status >= 400) {
+      if (status === 401) {
+        StorageService.saveAccessToken("");
+        //   window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}?id=${id}`;
+        throw new Error("EXPIRED_TOKEN");
+      }
+      let resText = await result.text();
+      throw resText;
+    }
+    let resJson = await result.json();
+    return [null, resJson];
+  } catch (error) {
+    return [error, null];
   }
-  let resJson = await result.json();
-  return resJson;
 };
