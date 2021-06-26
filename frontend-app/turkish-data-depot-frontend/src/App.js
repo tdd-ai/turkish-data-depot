@@ -3,7 +3,7 @@ import "./App.css";
 import styled from "styled-components";
 import NavigationBar from "./components/NavigationBar";
 import Datasets from "./screens/Datasets";
-import { BrowserRouter as Switch, Route } from "react-router-dom";
+import { HashRouter as Switch, Route } from "react-router-dom";
 
 const Styles = styled.div`
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
