@@ -83,4 +83,4 @@ admin.site.register(Compression, EnumAdmin)
 admin.site.register(License, CatalogEnumAdmin)
 
 admin.site.register(Dataset, DatasetAdmin)
-# admin.site.register(FileItem, FileItemAdmin)
+admin.site.register(FileItem, FileItemAdmin)
