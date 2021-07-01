@@ -2,6 +2,8 @@
 {% block content %}
 <div class='row'>
     <div class='col-6 offset-3'>
+        <div class='hashing-loading-queue'>
+        </div>
         <div class='item-loading-queue'>
         </div>
         <h3>Upload Dataset File</h3>
@@ -93,6 +95,48 @@
                 return null
         }
     };
+
+    function loading(file, callbackProgress, callbackFinal) {
+        var chunkSize  = 1024*1024; // bytes
+        var offset     = 0;
+        var size=chunkSize;
+        var partial;
+        var index = 0;
+
+        if(file.size===0){
+            callbackFinal();
+        }
+        while (offset < file.size) {
+            partial = file.slice(offset, offset+size);
+            var reader = new FileReader;
+            reader.size = chunkSize;
+            reader.offset = offset;
+            reader.index = index;
+            reader.onload = function(evt) {
+                callbackRead(this, file, evt, callbackProgress, callbackFinal);
+            };
+            reader.readAsArrayBuffer(partial);
+            offset += chunkSize;
+            index += 1;
+        }
+    }
+
+    var lastOffset = 0;
+    function callbackRead(reader, file, evt, callbackProgress, callbackFinal){
+        if(lastOffset === reader.offset) {
+            // in order chunk
+            lastOffset = reader.offset+reader.size;
+            callbackProgress(evt.target.result);
+            if ( reader.offset + reader.size >= file.size ){
+                callbackFinal();
+            }
+        } else {
+            // not in order chunk
+            timeout = setTimeout(function () {
+                callbackRead(reader,file,evt, callbackProgress, callbackFinal);
+            }, 10);
+        }
+    }
     
     function constructFormPolicyAndUpload(policyData, fileItem) {
         var url = policyData.url
@@ -101,72 +145,79 @@
         var fd = new FormData()
         fd.append('url', url + filename)
 
-        const shaObj = new jsSHA("SHA-256", "BYTES");
-        var reader = new FileReader();
-        reader.readAsBinaryString(fileItem);
-        reader.onloadend = function () {
+        var SHA256 = CryptoJS.algo.SHA256.create();
+        var file = fileItem;
+        var counter = 0;
+        var self = this;
 
-            shaObj.update(reader.result);
-            const hash = shaObj.getHash("HEX");
-            fd.append('hash',hash)
-            console.log(hash)
-            $.ajax({
-                method:"POST",
-                data: fd,
-                contentType: false,
-                processData: false,
-                headers: {"Authorization": "Token " + "{{token}}"},
-                url: "/api/files/headers/",
-                success: function(data){
-                    fd.append('data', fileItem);
-                    fd.append('headers', data)
+        loading(file,
+            function (data) {
+                var wordBuffer = CryptoJS.lib.WordArray.create(data);
+                SHA256.update(wordBuffer);
+                counter += data.byteLength;
+                percentage =(( counter / file.size)*100).toFixed(0)
+                displayHashing(percentage)
+            }, function (data) {
+                console.log('100%')
+                var encrypted = SHA256.finalize().toString()
+                fd.append('hash', encrypted)
+                $.ajax({
+                    method:"POST",
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    headers: {"Authorization": "Token " + "{{token}}"},
+                    url: "/api/files/headers/",
+                    success: function(data){
+                        fd.append('data', fileItem)
+                        fd.append('headers', data)
 
-                    var xhr = new XMLHttpRequest()
+                        var xhr = new XMLHttpRequest()
 
-                    // construct callback for when uploading starts
-                    xhr.upload.onloadstart = function(event){
-                        var inLoadingIndex = $.inArray(fileItem, fileItemList)
-                        if (inLoadingIndex == -1){
-                            // Item is not loading, add to inProgress queue
-                            newLoadingItem = {
-                                file: fileItem,
-                                id: policyData.file_id,
-                                order: fileItemList.length + 1
+                        // construct callback for when uploading starts
+                        xhr.upload.onloadstart = function(event){
+                            var inLoadingIndex = $.inArray(fileItem, fileItemList)
+                            if (inLoadingIndex == -1){
+                                // Item is not loading, add to inProgress queue
+                                newLoadingItem = {
+                                    file: fileItem,
+                                    id: policyData.file_id,
+                                    order: fileItemList.length + 1
+                                }
+                                fileItemList.push(newLoadingItem)
                             }
-                            fileItemList.push(newLoadingItem)
+                            fileItem.xhr = xhr
                         }
-                        fileItem.xhr = xhr
-                    }
-        
-                    // Monitor upload progress and attach to fileItem.
-                    xhr.upload.addEventListener("progress", function(event){
-                        if (event.lengthComputable) {
-                        var progress = Math.round(event.loaded / event.total * 100);
-                            fileItem.progress = progress
-                            displayItems(fileItemList)
+
+                        // Monitor upload progress and attach to fileItem.
+                        xhr.upload.addEventListener("progress", function(event){
+                            if (event.lengthComputable) {
+                            var progress = Math.round(event.loaded / event.total * 100);
+                                fileItem.progress = progress
+                                displayItems(fileItemList)
+                            }
+                        })
+
+                        xhr.upload.addEventListener("load", function(event){
+                            console.log("Complete")
+                            // handle FileItem Upload being complete.
+                            fileUploadComplete(fileItem, policyData)
+                        })
+
+                        xhr.open('PUT', fd.get('url') , true);
+
+                        for (const [key, value] of Object.entries(data)){
+                            xhr.setRequestHeader(key,value)
                         }
-                    })
-        
-                    xhr.upload.addEventListener("load", function(event){
-                        console.log("Complete")
-                        // handle FileItem Upload being complete.
-                        fileUploadComplete(fileItem, policyData)
-        
-                    })
-                    
-                    xhr.open('PUT', fd.get('url') , true);
-                    
-                    for (const [key, value] of Object.entries(data)){
-                        xhr.setRequestHeader(key,value)
+
+                        xhr.send(fd.get('data'));
+                    },
+                    error: function(data){
+                        alert("An error occured, please try again later")
                     }
-                    
-                    xhr.send(fd.get('data'));
-                },
-                error: function(data){
-                    alert("An error occured, please try again later")
-                }
-            })
-        }
+                })
+            }
+        );
         return
     }
     
@@ -200,11 +251,20 @@
             var item = obj.file
             var id_ = obj.id
             var order_ = obj.order
-            var html_ = "<div class=\"progress\">" + 
+            console.log(item.progress)
+            var html_ = "<div class=\"progress\">" +
               "<div class=\"progress-bar\" role=\"progressbar\" style='width:" + item.progress + "%' aria-valuenow='" + item.progress + "' aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>"
             itemList.append("<div>" + order_ + ") " + item.name + "<a href='#' class='srvup-item-upload float-right' data-id='" + id_ + ")'>X</a> <br/>" + html_ + "</div><hr/>")
     
         })
+    }
+
+    function displayHashing(percentage){
+        var itemList = $('.hashing-loading-queue')
+        itemList.html("")
+        var html_ = "<div class=\"progress\">" +
+              "<div class=\"progress-bar\" role=\"progressbar\" style='width:" + percentage + "%' aria-valuenow='" + percentage + "' aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>"
+        itemList.append("<div> Hashing file: " + html_ + "</div><hr/>")
     }
     
     

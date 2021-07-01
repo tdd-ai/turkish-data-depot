@@ -12,8 +12,8 @@
       {% block content %}{% endblock content %}
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> <!-- Ensure it's not jquery-3.2.1.slim.min.js -->
-    <script type="text/javascript" src="{% static 'sha256.js' %}"></script>
-    {% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/sha256.min.js" integrity="sha512-lnOrdDc1AhEWZwnKnDieQehiGI1Kh4yiP2DI+pRrEKZUPE4rvQVgqZBr8eZczqjUadGbU6To4rWsXiqVHwHG4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    {% block javascript %}
     
     {% endblock %}
     </body>

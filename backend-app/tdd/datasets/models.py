@@ -110,7 +110,7 @@ class Dataset(BaseModel):
         return super(Dataset, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        fileItem = FileItem.objects.get(dataset=self)
+        fileItem = FileItem.objects.filter(dataset=self).first()
         fileItem.delete()
         return super(Dataset,self).delete(*args, **kwargs)
 
