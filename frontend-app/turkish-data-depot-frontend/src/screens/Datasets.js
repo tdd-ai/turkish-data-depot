@@ -195,7 +195,12 @@ const Filters = ({ title, filters, filter, setFilter, k }) => {
 
 const DatasetCard = ({ id, catalog, name, short_description }) => {
   const onDownload = () => {
-    downloadDataset(id).then((r) => console.log(r));
+    downloadDataset(id).then((r) => {
+      let [err, result] = r;
+      if (err && err.message === "EXPIRED_TOKEN") {
+        return downloadDataset(id); // Already cleared the token, now will redirect to auth
+      }
+    });
   };
   return (
     <Col md={5} className="datasetcard">
@@ -253,7 +258,10 @@ const Datasets = () => {
     });
     if (toDownloadId) {
       downloadDataset(toDownloadId).then((r) => {
-        console.log(r);
+        let [err, result] = r;
+        if (err && err.message === "EXPIRED_TOKEN") {
+          return downloadDataset(toDownloadId); // Already cleared the token, now will redirect to auth
+        }
       });
     }
   }, [url]);
