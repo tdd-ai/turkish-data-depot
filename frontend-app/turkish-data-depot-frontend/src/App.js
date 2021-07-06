@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
-import styled from "styled-components";
-import NavigationBar from "./components/NavigationBar";
-import Datasets from "./screens/Datasets";
+
 import { HashRouter as Switch, Route } from "react-router-dom";
+import styled from "styled-components";
+
+import NavigationBar from "./components/NavigationBar";
+import { DataSets } from "./screens";
 
 const Styles = styled.div`
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -17,7 +18,7 @@ function App() {
       <NavigationBar />
       <Switch>
         <Route path="/">
-          <Datasets />
+          <DataSets />
         </Route>
       </Switch>
     </Styles>

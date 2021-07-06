@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+
 import Logo from "../assets/TDD-eng-color.png";
 
 const Styles = styled.div`
@@ -9,7 +9,7 @@ const Styles = styled.div`
   }
 `;
 
-const NavigationBar = (props) => {
+const NavigationBar = () => {
   return (
     <Styles>
       <Navbar bg="light" expand="lg">
