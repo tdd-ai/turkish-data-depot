@@ -16,7 +16,7 @@ import {
 import StorageService from "../../services/StorageService";
 import { downloadDataset } from "../../services/DatasetService";
 
-import { DatasetsContainer } from "./Datasets.styled";
+import { DatasetsContainer, DataSetCardsContainer } from "./Datasets.styled";
 import Filters from "./Filters";
 import DataSetCard from "./DataSetCard";
 
@@ -130,6 +130,7 @@ const DataSets = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              marginBottom: 16,
             }}
           >
             <h2 className="datasets-title">Datasets</h2>
@@ -139,11 +140,11 @@ const DataSets = () => {
               className="dataset-search"
             />
           </div>
-          <Row>
+          <DataSetCardsContainer>
             {datasets?.map((i) => (
               <DataSetCard {...i} />
             ))}
-          </Row>
+          </DataSetCardsContainer>
         </Col>
       </Row>
     </DatasetsContainer>
