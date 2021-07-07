@@ -1,2 +1,2 @@
 export { DataSets } from "./DataSets";
-export { DataSetDetail } from "./DataSetDetail";
+export { DataSetDetails } from "./DataSetDetails";
