@@ -7,12 +7,17 @@ const Styles = styled.div`
   .tdd-logo {
     height: 50px;
   }
+
+  .navbar {
+    box-shadow: inset 0px -1px 0px #e2e2ea;
+    background-color: #fff;
+  }
 `;
 
 const NavigationBar = () => {
   return (
     <Styles>
-      <Navbar bg="light" expand="lg">
+      <Navbar expand="lg">
         <img className="tdd-logo" src={Logo} alt="logo" />
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
       </Navbar>

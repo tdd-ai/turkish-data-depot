@@ -42,7 +42,7 @@ const DatasetsContainer = styled.div`
     flex: 2;
     width: 70%;
     height: 100%;
-    border-left: 1px solid #bec0c2;
+    border-left: 1px solid #e2e2ea;
   }
 
   .datasets-title {
