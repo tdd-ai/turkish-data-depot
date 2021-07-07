@@ -9,8 +9,10 @@ const DataSetCardsContainer = styled.div`
 const DatasetsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
 
   .filters-c {
+    flex: 1;
     display: flex;
     width: 30%;
     height: 100%;
@@ -37,6 +39,7 @@ const DatasetsContainer = styled.div`
   }
 
   .datasets-c {
+    flex: 2;
     width: 70%;
     height: 100%;
     border-left: 1px solid #bec0c2;
