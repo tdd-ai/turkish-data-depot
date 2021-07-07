@@ -1,5 +1,8 @@
+import { Redirect } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { DataSetDetailContainer } from "./DataSetDetails.styled";
+
+import { useDataSet } from "../../hooks";
 
 const markdown = `
   # Title
@@ -17,22 +20,17 @@ const markdown = `
 `;
 
 const DatasetDetails = () => {
-  return (
+  const { selectedDataSet } = useDataSet();
+
+  return selectedDataSet ? (
     <DataSetDetailContainer>
-      <h1>Dataset Title</h1>
-      <h3>Dataset Details Catalog</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        auctor, velit eget rhoncus ultricies, nisi nulla condimentum enim, eget
-        porta lorem leo eu nunc. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Curabitur auctor, velit eget rhoncus ultricies, nisi
-        nulla condimentum enim, eget porta lorem leo eu nunc. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit. Curabitur auctor, velit eget
-        rhoncus ultricies, nisi nulla condimentum enim, eget porta lorem leo eu
-        nunc.
-      </p>
+      <h1>{selectedDataSet.name}</h1>
+      <h3>{selectedDataSet.catalog}</h3>
+      <p>{selectedDataSet.short_description}</p>
       <ReactMarkdown>{markdown}</ReactMarkdown>
     </DataSetDetailContainer>
+  ) : (
+    <Redirect to="/" />
   );
 };
 
