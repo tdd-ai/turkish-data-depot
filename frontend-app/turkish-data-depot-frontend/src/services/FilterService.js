@@ -144,3 +144,21 @@ export const listDatasets = async (filters) => {
   let resJson = await result.json();
   return resJson;
 };
+
+export const getDataset = async (id) => {
+  let result = await fetch(FILTER_ROUTES.LIST_DATASETS + `/${id}`, {
+    method: "GET",
+    url: FILTER_ROUTES.LIST_DATASETS,
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  let status = result.status;
+  if (status >= 400) {
+    let resText = await result.text();
+    throw resText;
+  }
+  let resJson = await result.json();
+  return resJson;
+};

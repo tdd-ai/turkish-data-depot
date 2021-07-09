@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/">
           <DataSets />
         </Route>
-        <Route path="/dataset">
+        <Route path="/:id">
           <DataSetDetails />
         </Route>
       </Switch>

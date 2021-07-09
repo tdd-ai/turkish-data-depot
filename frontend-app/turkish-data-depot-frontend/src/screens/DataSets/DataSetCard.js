@@ -12,7 +12,7 @@ const DataSetCard = ({ id, catalog, name, short_description }) => {
 
   const navigateDataSetDetails = () => {
     setSelectedDataSet({ id, catalog, name, short_description });
-    history.push("/dataset");
+    history.push(`/${id}`);
   };
 
   return (

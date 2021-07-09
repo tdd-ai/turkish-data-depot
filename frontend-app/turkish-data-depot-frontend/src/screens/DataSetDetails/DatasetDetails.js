@@ -1,37 +1,38 @@
-import { Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import { useRouteMatch } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { DataSetDetailContainer } from "./DataSetDetails.styled";
+import {
+  ContentContainer,
+  DataSetDetailContainer,
+} from "./DataSetDetails.styled";
 
-import { useDataSet } from "../../hooks";
-
-const markdown = `
-  # Title
-  ## Title
-  ### Title
-  #### Title
-  ##### Title
-  ###### Title
-
-  Lorem ipsum dolor si amet.
-
-  > Lorem ipsum dolor si amet.
-
-  ![Image](https://placehold.it/500x500)
-`;
+import { getDataset } from "../../services/FilterService";
+import Annotations from "./Annotations";
+import FileDetails from "./FileDetails";
 
 const DatasetDetails = () => {
-  const { selectedDataSet } = useDataSet();
+  const {
+    params: { id },
+  } = useRouteMatch();
+  const [dataSet, setDataSet] = useState(null);
 
-  return selectedDataSet ? (
+  useEffect(async () => {
+    setDataSet(await getDataset(id));
+  }, []);
+
+  return dataSet ? (
     <DataSetDetailContainer>
-      <h1>{selectedDataSet.name}</h1>
-      <h3>{selectedDataSet.catalog}</h3>
-      <p>{selectedDataSet.short_description}</p>
-      <ReactMarkdown>{markdown}</ReactMarkdown>
+      {dataSet.annotations && <Annotations annotations={dataSet.annotations} />}
+      <ContentContainer>
+        <h2>{dataSet.name}</h2>
+        <h4>{dataSet.catalog}</h4>
+        <p>{dataSet.short_description}</p>
+        <ReactMarkdown>{dataSet.description}</ReactMarkdown>
+      </ContentContainer>
+      <FileDetails dataset={dataSet} />
     </DataSetDetailContainer>
-  ) : (
-    <Redirect to="/" />
-  );
+  ) : null;
 };
 
 export default DatasetDetails;
