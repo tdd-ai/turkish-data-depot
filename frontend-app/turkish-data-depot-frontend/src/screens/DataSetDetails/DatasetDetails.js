@@ -17,13 +17,14 @@ const DatasetDetails = () => {
   } = useRouteMatch();
   const [dataSet, setDataSet] = useState(null);
 
-  async function fetchDataSet() {
+  const fetchDataSet = async () => {
     const response = await getDataset(id);
     setDataSet(response);
-  }
+  };
 
   useEffect(() => {
     fetchDataSet();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return dataSet ? (
