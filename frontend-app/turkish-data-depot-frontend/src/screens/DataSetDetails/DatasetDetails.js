@@ -17,8 +17,13 @@ const DatasetDetails = () => {
   } = useRouteMatch();
   const [dataSet, setDataSet] = useState(null);
 
-  useEffect(async () => {
-    setDataSet(await getDataset(id));
+  async function fetchDataSet() {
+    const response = await getDataset(id);
+    setDataSet(response);
+  }
+
+  useEffect(() => {
+    fetchDataSet();
   }, []);
 
   return dataSet ? (
