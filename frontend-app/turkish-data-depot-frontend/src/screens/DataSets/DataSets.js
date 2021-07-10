@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { useHistory } from "react-router-dom";
+
 import {
   listAnnotations,
   listCompressions,
@@ -17,12 +19,22 @@ import { DatasetsContainer, DataSetCardsContainer } from "./Datasets.styled";
 import Filters from "./Filters";
 import DataSetCard from "./DataSetCard";
 
+import { useQuery } from "../../hooks";
+
 const DataSets = () => {
+  const query = useQuery();
+  const history = useHistory();
+
   const url = window.location.href;
   const toDownloadId = (/\?id=([\s\S]*)\?token/.exec(url) || [])[1];
   const token = (/\?token=([\s\S]*)/.exec(url) || [])[1];
+
   if (token) {
     StorageService.saveAccessToken(token);
+    query.delete("token");
+    history.replace({
+      search: query.toString(),
+    });
   }
 
   const [dataTypes, setDataTypes] = useState(null);
