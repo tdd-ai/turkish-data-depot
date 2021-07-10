@@ -153,6 +153,13 @@ const DatasetsContainer = styled.div`
 
     font-weight: 500;
     width: fit-content;
+
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: #009dd2;
+      color: white;
+    }
   }
 `;
 
