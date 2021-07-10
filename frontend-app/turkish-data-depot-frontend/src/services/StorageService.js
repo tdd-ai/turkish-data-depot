@@ -19,12 +19,17 @@ const getRefreshToken = () => {
   return localStorage.getItem(StorageKeys.refreshToken);
 };
 
+const removeItem = (key) => {
+  return localStorage.removeItem(key);
+};
+
 const StorageService = {
   StorageKeys,
   saveAccessToken,
   saveRefreshToken,
   getAccessToken,
   getRefreshToken,
+  removeItem,
 };
 
 export default StorageService;

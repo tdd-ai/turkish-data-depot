@@ -1,11 +1,15 @@
 import { AUTH_ROUTES, DATASET_ROUTES } from "../constants/Routes";
 import StorageService from "./StorageService";
 
+const redirectToAuth = (id) => {
+  window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}?id=${id}`;
+};
+
 export const downloadDataset = async (id) => {
   try {
     const token = StorageService.getAccessToken();
     if (!token || token === "") {
-      window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}?id=${id}`;
+      redirectToAuth(id);
       return;
     }
     let result = await fetch(DATASET_ROUTES.DOWNLOAD, {
@@ -22,9 +26,8 @@ export const downloadDataset = async (id) => {
     let status = result.status;
     if (status >= 400) {
       if (status === 401) {
-        StorageService.saveAccessToken("");
-        //   window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}?id=${id}`;
-        throw new Error("EXPIRED_TOKEN");
+        StorageService.removeItem("accessToken");
+        redirectToAuth(id);
       }
       let resText = await result.text();
       throw resText;
