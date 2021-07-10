@@ -30,27 +30,33 @@ const Filters = ({ title, filters, filter, setFilter, k }) => {
     <>
       <span style={{ fontWeight: 500, marginBottom: 10 }}>{title}</span>
       <div style={{ marginBottom: 20, width: "100%" }} className="tags-c">
-        {(isExpanded ? filters : filters.slice(0, sliceSize)).map((el) => {
-          const renderTooltip = (props) => (
-            <Tooltip id="button-tooltip" {...props}>
-              {el.description}
-            </Tooltip>
-          );
-          return (
-            <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <div
-                onClick={() => {
-                  updateFilter(el, title);
-                }}
-                className={
-                  isSelected(el.name) ? "filter" : "selected-filter filter"
-                }
+        {(isExpanded ? filters : filters.slice(0, sliceSize)).map(
+          (el, index) => {
+            const renderTooltip = (props) => (
+              <Tooltip id="button-tooltip" {...props}>
+                {el.description}
+              </Tooltip>
+            );
+            return (
+              <OverlayTrigger
+                key={index}
+                placement="top"
+                overlay={renderTooltip}
               >
-                {el.name}
-              </div>
-            </OverlayTrigger>
-          );
-        })}
+                <div
+                  onClick={() => {
+                    updateFilter(el, title);
+                  }}
+                  className={
+                    isSelected(el.name) ? "filter" : "selected-filter filter"
+                  }
+                >
+                  {el.name}
+                </div>
+              </OverlayTrigger>
+            );
+          }
+        )}
         {filters.length - sliceSize > 0 && (
           <div onClick={() => setExpanded(!isExpanded)} className="expand">
             {isExpanded ? "⇠" : filters.length - sliceSize + " more"}
