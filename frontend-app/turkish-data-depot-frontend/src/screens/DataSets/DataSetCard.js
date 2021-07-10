@@ -6,7 +6,8 @@ const DataSetCard = ({ id, catalog, name, short_description }) => {
   const history = useHistory();
   const { setSelectedDataSet } = useDataSet();
 
-  const onDownload = () => {
+  const onDownload = (e) => {
+    e.stopPropagation();
     downloadDataset(id).then((r) => console.log(r));
   };
 
