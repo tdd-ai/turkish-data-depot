@@ -230,10 +230,10 @@ class FileUploadView(TemplateView):
 
 
 class FileUploadCompleteHandler(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format=None):
         file_id = request.POST.get('file')
         size = request.POST.get('fileSize')
         data = {}
@@ -251,8 +251,8 @@ class FileUploadCompleteHandler(APIView):
 
 class DownloadFile(APIView):
 
-    permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         fileItem = FileItem.objects.get(dataset_id=request.data.get("dataset"))
