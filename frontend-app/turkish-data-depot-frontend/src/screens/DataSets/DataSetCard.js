@@ -8,7 +8,9 @@ const DataSetCard = ({ id, catalog, name, short_description }) => {
 
   const onDownload = (e) => {
     e.stopPropagation();
-    downloadDataset(id).then((r) => console.log(r));
+    downloadDataset(id).then((r) => {
+      window.open(r.url, "_blank");
+    });
   };
 
   const navigateDataSetDetails = () => {

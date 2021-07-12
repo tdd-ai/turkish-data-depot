@@ -16,8 +16,10 @@ export const downloadDataset = async (id) => {
       method: "POST",
       url: DATASET_ROUTES.DOWNLOAD,
       headers: {
-        Accept: "application/json",
-        Authorization: `Token ${token}`,
+        Accept: "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         dataset: id,
@@ -33,7 +35,8 @@ export const downloadDataset = async (id) => {
       throw resText;
     }
     let resJson = await result.json();
-    return [null, resJson];
+
+    return resJson;
   } catch (error) {
     return [error, null];
   }
