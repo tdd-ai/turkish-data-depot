@@ -1,6 +1,13 @@
 import { FileDetailsContainer } from "./DataSetDetails.styled";
+import { downloadDataset } from "../../services/DatasetService";
 
 const FileDetails = ({ dataset }) => {
+  const onDownload = () => {
+    downloadDataset(dataset.id).then((r) => {
+      window.open(r.url, "_blank");
+    });
+  };
+
   return (
     <FileDetailsContainer>
       <h3>Details</h3>
@@ -56,6 +63,9 @@ const FileDetails = ({ dataset }) => {
           </tr>
         </tbody>
       </table>
+      <button onClick={onDownload} className="download-button">
+        Download Data Set
+      </button>
     </FileDetailsContainer>
   );
 };

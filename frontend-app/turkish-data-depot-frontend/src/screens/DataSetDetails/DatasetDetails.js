@@ -10,12 +10,15 @@ import {
 import { getDataset } from "../../services/FilterService";
 import Annotations from "./Annotations";
 import FileDetails from "./FileDetails";
+import { useRedirectedData } from "../../hooks";
 
 const DatasetDetails = () => {
   const {
     params: { id },
   } = useRouteMatch();
   const [dataSet, setDataSet] = useState(null);
+
+  useRedirectedData();
 
   const fetchDataSet = async () => {
     const response = await getDataset(id);

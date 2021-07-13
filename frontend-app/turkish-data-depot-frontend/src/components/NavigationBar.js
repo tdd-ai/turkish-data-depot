@@ -6,6 +6,7 @@ import Logo from "../assets/TDD-eng-color.png";
 const Styles = styled.div`
   .tdd-logo {
     height: 50px;
+    cursor: pointer;
   }
 
   .navbar {
@@ -15,10 +16,19 @@ const Styles = styled.div`
 `;
 
 const NavigationBar = () => {
+  const navigateHome = () => {
+    window.location.assign("/");
+  };
+
   return (
     <Styles>
       <Navbar expand="lg">
-        <img className="tdd-logo" src={Logo} alt="logo" />
+        <img
+          onClick={navigateHome}
+          className="tdd-logo"
+          src={Logo}
+          alt="logo"
+        />
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
       </Navbar>
     </Styles>
