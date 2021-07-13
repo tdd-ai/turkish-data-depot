@@ -35,8 +35,8 @@ const FileDetails = ({ dataset }) => {
             <th>{dataset.source}</th>
           </tr>
           <tr>
-            <th>Licence</th>
-            <th>{dataset.licence}</th>
+            <th>License</th>
+            <th>{dataset.license}</th>
           </tr>
           <tr>
             <th>Compression</th>
