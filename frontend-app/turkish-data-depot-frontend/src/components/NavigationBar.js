@@ -1,19 +1,34 @@
 import styled from "styled-components";
 import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+
 import Logo from "../assets/TDD-eng-color.png";
 
 const Styles = styled.div`
   .tdd-logo {
     height: 50px;
+    cursor: pointer;
+  }
+
+  .navbar {
+    box-shadow: inset 0px -1px 0px #e2e2ea;
+    background-color: #fff;
   }
 `;
 
-const NavigationBar = (props) => {
+const NavigationBar = () => {
+  const navigateHome = () => {
+    window.location.assign("/");
+  };
+
   return (
     <Styles>
-      <Navbar bg="light" expand="lg">
-        <img className="tdd-logo" src={Logo} alt="logo" />
+      <Navbar expand="lg">
+        <img
+          onClick={navigateHome}
+          className="tdd-logo"
+          src={Logo}
+          alt="logo"
+        />
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
       </Navbar>
     </Styles>

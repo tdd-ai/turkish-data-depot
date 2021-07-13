@@ -1,5 +1,8 @@
 const BASE_ADDRESS = "https://data.tdd.ai/api";
-const BASE_AUTH_ADDRESS = "http://localhost:3001/#";
+const BASE_AUTH_ADDRESS =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001/#"
+    : "https://auth.tdd.ai/#";
 
 export const FILTER_ROUTES = Object.freeze({
   LIST_DATA_TYPES: BASE_ADDRESS + "/enum/data-types/",

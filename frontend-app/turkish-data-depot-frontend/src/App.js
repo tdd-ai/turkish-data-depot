@@ -1,26 +1,36 @@
-import logo from "./logo.svg";
 import "./App.css";
-import styled from "styled-components";
-import NavigationBar from "./components/NavigationBar";
-import Datasets from "./screens/Datasets";
+
+import { useMemo, useState } from "react";
 import { HashRouter as Switch, Route } from "react-router-dom";
 
-const Styles = styled.div`
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-`;
+import NavigationBar from "./components/NavigationBar";
+import { DataSets, DataSetDetails } from "./screens";
+
+import { DataSetContext } from "./context";
 
 function App() {
+  const [selectedDataSet, setSelectedDataSet] = useState(null);
+
+  const dataSetContext = useMemo(
+    () => ({
+      selectedDataSet,
+      setSelectedDataSet,
+    }),
+    [selectedDataSet, setSelectedDataSet]
+  );
+
   return (
-    <Styles>
+    <DataSetContext.Provider value={dataSetContext}>
       <NavigationBar />
       <Switch>
-        <Route path="/">
-          <Datasets />
+        <Route exact path="/">
+          <DataSets />
+        </Route>
+        <Route path="/:id">
+          <DataSetDetails />
         </Route>
       </Switch>
-    </Styles>
+    </DataSetContext.Provider>
   );
 }
 
