@@ -1,4 +1,4 @@
-const BASE_ADDRESS = "https://data.tdd.ai/api";
+const BASE_ADDRESS = "https://data-api.tdd.ai/api";
 const BASE_AUTH_ADDRESS =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001/#"
