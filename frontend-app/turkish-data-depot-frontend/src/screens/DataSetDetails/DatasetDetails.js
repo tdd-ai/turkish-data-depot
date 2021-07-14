@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 import { useRouteMatch } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import reactDom from "react-dom";
 import gfm from "remark-gfm";
 
 import {
