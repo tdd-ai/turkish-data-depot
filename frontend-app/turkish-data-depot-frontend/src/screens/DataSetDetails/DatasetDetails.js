@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 
 import { useRouteMatch } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import reactDom from "react-dom";
+import gfm from "remark-gfm";
+
 import {
   ContentContainer,
   DataSetDetailContainer,
@@ -37,7 +40,7 @@ const DatasetDetails = () => {
         <h2>{dataSet.name}</h2>
         <h4>{dataSet.catalog}</h4>
         <p>{dataSet.short_description}</p>
-        <ReactMarkdown>{dataSet.description}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[gfm]} children={dataSet.description} />
       </ContentContainer>
       <FileDetails dataset={dataSet} />
     </DataSetDetailContainer>
