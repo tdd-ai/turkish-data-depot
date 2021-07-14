@@ -17,7 +17,7 @@ if not os.path.exists(CONFIG_DIR):
 
 if not DEBUG:
 	try:
-		pem_public = requests.get("https://auth.tdd.ai/fetch-public-key").json()["key"]
+		pem_public = requests.get("https://auth-api.tdd.ai/fetch-public-key").json()["key"]
 		with open(JWT_PUBLIC_KEY_PATH, 'w') as pk:
 			pk.write(pem_public)
 
