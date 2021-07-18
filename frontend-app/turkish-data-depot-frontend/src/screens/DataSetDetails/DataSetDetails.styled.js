@@ -16,6 +16,7 @@ const ContentContainer = styled.div`
 `;
 
 const DataSetDetailContainer = styled.div`
+  font-family: 'Helvetica';
   display: flex;
   flex-direction: row;
   padding: 20px 40px;

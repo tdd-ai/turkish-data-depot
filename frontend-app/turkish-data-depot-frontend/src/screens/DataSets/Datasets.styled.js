@@ -7,6 +7,8 @@ const DataSetCardsContainer = styled.div`
 `;
 
 const DatasetsContainer = styled.div`
+
+  font-family: 'Helvetica';
   display: flex;
   flex-direction: row;
   width: 100%;
