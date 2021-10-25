@@ -50,6 +50,10 @@ const FileDetails = ({ dataset }) => {
             <th>{dataset.compression}</th>
           </tr>
           <tr>
+            <th>Format</th>
+            <th>{dataset.format}</th>
+          </tr>
+          <tr>
             <th>Download Size</th>
             <th>{dataset.download_size}</th>
           </tr>
