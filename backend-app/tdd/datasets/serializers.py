@@ -53,7 +53,7 @@ class DatasetListSerializer(serializers.ModelSerializer):
 
 class DatasetDetailSerializer(serializers.ModelSerializer):
 
-    format = serializers.CharField(source='foramt.name', read_only=True)
+    format = serializers.CharField(source='format.name', read_only=True)
     type = serializers.CharField(source='type.name', read_only=True)
     data_type = serializers.CharField(source='data_type.name', read_only=True)
     source = serializers.CharField(source='source.name', read_only=True)
