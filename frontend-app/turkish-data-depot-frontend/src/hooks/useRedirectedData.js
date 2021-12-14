@@ -12,9 +12,11 @@ const useRedirectedData = () => {
   if (token) {
     StorageService.saveAccessToken(token);
     query.delete("token");
-    history.replace({
-      search: query.toString(),
-    });
+    if (query.toString()){
+      history.replace({
+        search: query.toString(),
+      });
+    }
   }
 };
 

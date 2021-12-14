@@ -19,6 +19,14 @@ const getRefreshToken = () => {
   return localStorage.getItem(StorageKeys.refreshToken);
 };
 
+const removeAccessToken = () => {
+  return localStorage.removeItem(StorageKeys.accessToken);
+};
+
+const removeRefreshToken = () => {
+  return localStorage.removeItem(StorageKeys.refreshToken);
+};
+
 const removeItem = (key) => {
   return localStorage.removeItem(key);
 };
@@ -29,6 +37,8 @@ const StorageService = {
   saveRefreshToken,
   getAccessToken,
   getRefreshToken,
+  removeAccessToken,
+  removeRefreshToken,
   removeItem,
 };
 

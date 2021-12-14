@@ -4,7 +4,7 @@ import { downloadDataset } from "../../services/DatasetService";
 const FileDetails = ({ dataset }) => {
   const onDownload = () => {
     downloadDataset(dataset.id).then((r) => {
-      window.open(r.url, "_blank");
+      window.location = r.url;
     });
   };
 
