@@ -36,6 +36,7 @@ function App() {
             }} />
           <Route path="/signout" component={() => {
               StorageService.removeAccessToken()
+              StorageService.removeFullName()
               window.location = `${APP_ADDRESS_URL}`
           }} />
       </Switch>

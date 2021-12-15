@@ -20,6 +20,7 @@ const Styles = styled.div`
 
 const NavigationBar = () => {
   const [token, setToken] = useState(StorageService.getAccessToken());
+  const [fullName, setFullName] = useState(StorageService.getFullName());
 
   const navigateHome = () => {
     window.location.assign("/");
@@ -27,6 +28,7 @@ const NavigationBar = () => {
 
   useEffect(() =>{
     setToken(StorageService.getAccessToken())
+    setFullName(StorageService.getFullName())
   })
   return (
     <Styles>
@@ -41,6 +43,11 @@ const NavigationBar = () => {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             {token ?
               <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/"}>
+                      {fullName}
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to={"/signout"}>
                       Sign out
