@@ -26,4 +26,4 @@ export const AUTH_ROUTES = Object.freeze({
   LOGIN: BASE_AUTH_ADDRESS + "/login",
 });
 
-export const APP_ADDRESS_URL = "https://data-api.tdd.ai"
+export const APP_ADDRESS_URL = "https://data.tdd.ai"
