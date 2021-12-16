@@ -30,7 +30,7 @@ const getRefreshToken = () => {
 const getFullName = () => {
   let first_name = localStorage.getItem(StorageKeys.firstName)
   let last_name = localStorage.getItem(StorageKeys.lastName)
-  if (last_name != "null"){
+  if (last_name !== "null"){
     return first_name +  ' ' + last_name
   }
   else {
