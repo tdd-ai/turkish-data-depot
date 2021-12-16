@@ -32,7 +32,7 @@ function App() {
           <DataSetDetails />
         </Route>
          <Route path="/login" component={() => {
-              window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}`
+              window.location = `${AUTH_ROUTES.LOGIN}?redir=${APP_ADDRESS_URL}`
             }} />
           <Route path="/signout" component={() => {
               StorageService.removeAccessToken()
