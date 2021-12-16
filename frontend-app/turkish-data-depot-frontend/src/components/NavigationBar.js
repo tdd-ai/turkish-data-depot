@@ -23,7 +23,7 @@ const NavigationBar = () => {
   const [fullName, setFullName] = useState(StorageService.getFullName());
 
   const navigateHome = () => {
-    window.location.assign("https://tdd.ai/");
+    window.location.assign("/");
   };
 
   useEffect(() =>{
