@@ -2,7 +2,7 @@ import { AUTH_ROUTES, DATASET_ROUTES } from "../constants/Routes";
 import StorageService from "./StorageService";
 
 const redirectToAuth = (id) => {
-  window.location = `${AUTH_ROUTES.LOGIN}?redir=${window.location.href}`;
+  window.location = `${AUTH_ROUTES.LOGIN}?redir=${APP_ADDRESS_URL}`;
 };
 
 export const downloadDataset = async (id) => {
