@@ -38,7 +38,6 @@ const DatasetDetails = () => {
       <ContentContainer>
         <h2>{dataSet.name}</h2>
         <h4>{dataSet.catalog}</h4>
-        <p>{dataSet.short_description}</p>
         <ReactMarkdown remarkPlugins={[gfm]} children={dataSet.description} />
       </ContentContainer>
       <FileDetails dataset={dataSet} />
