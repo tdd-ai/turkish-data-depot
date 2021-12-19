@@ -1,4 +1,4 @@
-import { AUTH_ROUTES, DATASET_ROUTES } from "../constants/Routes";
+import { AUTH_ROUTES, APP_ADDRESS_URL, DATASET_ROUTES } from "../constants/Routes";
 import StorageService from "./StorageService";
 
 const redirectToAuth = (id) => {
