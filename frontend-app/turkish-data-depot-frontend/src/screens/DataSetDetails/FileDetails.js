@@ -22,6 +22,10 @@ const FileDetails = ({ dataset }) => {
             <th>{dataset.catalog}</th>
           </tr>
           <tr>
+            <th>DOI</th>
+            <th>{dataset.doi}</th>
+          </tr>
+          <tr>
             <th>Description</th>
             <th>{dataset.short_description}</th>
           </tr>
