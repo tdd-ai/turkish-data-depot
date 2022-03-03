@@ -63,5 +63,5 @@ class DatasetDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        fields = ('id', 'name', 'catalog', 'short_description', 'description', 'version', 'format',
+        fields = ('id', 'name', 'catalog', 'doi', 'short_description', 'description', 'version', 'format',
             'type', 'data_type', 'source', 'license', 'compression', 'annotations', 'download_size', 'authors', 'release_date')
